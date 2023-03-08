@@ -38,6 +38,7 @@ import com.ecard.vCard.Entity.Image;
 import com.ecard.vCard.Entity.Person;
 import com.ecard.vCard.Repository.ImageRepository;
 import com.ecard.vCard.Repository.PersonRepository;
+import com.ecard.vCard.Util.GenereteCode;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
@@ -128,7 +129,14 @@ public class PersonController {
         Person person = personRepository.findbyUsername(username).get();
         data.put("data", person);
         return new ResponseEntity<>(data, HttpStatus.OK);
-      }
+    }
+
+    @RequestMapping(value = "/qrcode", method = RequestMethod.GET)
+      public void qrcode(@RequestParam String link, HttpServletResponse response) throws Exception {
+        response.setContentType("image/png");
+        OutputStream outputStream = response.getOutputStream();
+        outputStream.write(GenereteCode.getQRCodeImage(link, 500, 500));
+    }
 
     ////////////////////////////////////////////     Menampilkan atau Stream Image     ////////////////////////////////////////////
     @GetMapping(value = "/streamImage")
