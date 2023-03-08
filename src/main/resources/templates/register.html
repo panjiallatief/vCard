@@ -32,7 +32,7 @@
                 <div class="row">
                     <input name="files" class="form-control" type="file" id="filep" accept="image/*" />
                 </div>
-                <input type="text" th:value="${session.username}" id="usernameee" hidden/>
+                <input type="text" th:value="${session.username}" id="usernameee" hidden />
                 <label class="mt-3" style="color: white;">Nama Lengkap</label>
                 <input type="text" id="isinama" class="form-control mt-1" />
                 <label class="mt-3" style="color: white;">Isi Divisi</label>
@@ -43,11 +43,19 @@
                 <input type="text" id="isiemail" class="form-control mt-1" />
             </form>
             <a class="btn btn-primary mt-5" type="button" onclick="senddata()">Simpan</a>
-
+            <a class="btn btn-outline-warning mt-3" type="button" onclick="generateQR()">Generate QR</a>
         </div>
 
     </div>
 </body>
+<div class="modal fade bd-example-modal-lg" data-backdrop="static" data-keyboard="false" tabindex="-1"
+    id="modalLoading">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content" style="width: 48px">
+            <span class="fa fa-spinner fa-spin fa-3x"></span>
+        </div>
+    </div>
+</div>
 
 </html>
 
@@ -58,7 +66,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
     integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.0/axios.min.js"
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.0/axios.min.js"
     integrity="sha512-OdkysyYNjK4CZHgB+dkw9xQp66hZ9TLqmS2vXaBrftfyJeduVhyy1cOfoxiKdi4/bfgpco6REu6Rb+V2oVIRWg=="
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script th:inline="javascript">
@@ -88,21 +96,57 @@
         var inputFile = document.getElementsByName("files");
         list = [];
         for (var i = 0; i < inputFile.length; i++) {
-        var a = inputFile[i].files[0];
-        list.push(a);
+            var a = inputFile[i].files[0];
+            list.push(a);
         }
         list.forEach(video => {
-        bodyFormData.append("files", video);
-        bodyFormData.append("files", list);
+            bodyFormData.append("files", video);
+            bodyFormData.append("files", list);
         });
         axios({
             method: "post",
             url: uri,
             data: bodyFormData,
             headers: { "Content-Type": "multipart/form-data" },
-        });
+
+        })
+            .then(function (response) {
+                Swal.fire({
+                    position: "center",
+                    icon: response.data.icon,
+                    title: response.data.message,
+                    showConfirmButton: false,
+                    timer: 1500,
+                }).then((result) => {
+                    $("#modalLoading").modal("show");
+                    location.reload();
+                });
+            })
+            .catch(function (obj) {
+                Swal.fire({
+                    position: "center",
+                    icon: obj.response.data.icon,
+                    title: obj.response.data.message,
+                    showConfirmButton: false,
+                    timer: 1500,
+                }).then((result) => {
+                    $("#modalLoading").modal("show");
+                    location.reload();
+                });
+            });;
         console.log(uri);
         // location.reload();
+    }
+
+    function generateQR() {
+        var usme = document.getElementById("usernameee").value;
+        $.ajax({
+            url: `/qrcode?link=139.255.52.68:8110/Person/${usme}`,
+            method: "get",
+            success: function () {
+                // location.reload();
+            }
+        });
     }
 
 
