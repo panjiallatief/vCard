@@ -60,8 +60,10 @@
     function getdata() {
         $.get(`/Person?id=1`, function (res) {
             var per = res.data;
-            $("#names").text(per.nama);
-            $("#divisi").text(per.divisi);
+            // $("#names").text(per.nama);
+            // $("#divisi").text(per.divisi);
+            // document.getElementById("names").innerHTML = "Panji Maulana Al Latief"
+            document.getElementById("names").innerHTML = "" + `${per.nama}` + ""
         })
     }
 /*]]>*/
