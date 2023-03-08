@@ -69,7 +69,7 @@
 
     function getdata(username) {
         var usm = document.getElementById("usernameee").val();
-        $.get(`/Person/${usm}`, function (res) {
+        $.get(`/findusername?username=${usm}`, function (res) {
             var per = res.data;
             $("#isinama").val(per.nama);
             $("#isidivisi").val(per.divisi);
