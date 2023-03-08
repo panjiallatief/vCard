@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
@@ -72,9 +73,9 @@ public class PersonController {
         return "register";
     }
 
-    @GetMapping(value = "/Person")
-    public String Person(@RequestParam (required = true) String username, Model model){
-        Map data = new HashMap<>();
+    @GetMapping(value = "/Person/{username}")
+    public String Person(@PathVariable (required = true) String username, Model model){
+
         Person person = personRepository.findbyUsername(username).get();
         model.addAttribute("nama", person.getNama());
         model.addAttribute("email", person.getEmail());
