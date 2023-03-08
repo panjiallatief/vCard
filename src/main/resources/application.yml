@@ -1,0 +1,260 @@
+spring:
+   profiles:
+      active: panji
+---
+spring:
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true
+  config:
+    activate:
+      on-profile: panji
+  application:
+    name: Panji
+  datasource:
+      url: jdbc:postgresql://localhost:5432/VCARD
+      username: postgres
+      password: 123456
+      driverClassName: org.postgresql.Driver
+  jpa: 
+      database: default
+      hibernate: 
+         dialect: org.hibernate.dialect.PostgreSQLDialect
+         ddl-auto: update
+  thymeleaf:
+    cache: false
+    mode: HTML
+    encoding: UTF-8
+    prefix: classpath:/templates/
+  servlet:
+    multipart:
+      max-file-size: -1
+      max-request-size: -1
+  web:
+    resources:
+      static-locations: classpath:/static/
+      cache:
+        period: 0
+server:
+  port: 8110
+  error:
+    whitelabel:
+      enabled: false
+    path: /error
+# URL:
+#   FILE_IN: C:\\Image
+#   FILE_PRIEVIEW: C:\\Image
+#   DOWNLOAD_HI_RES: C:\\Image
+#   DOWNLOAD_LOW_RES: C:\\Image
+# URL:
+#   FILE_IN: C:\\Users\\panji.maulana\\Movies\\IN
+#   FILE_IN_IMAGE: C:\\Users\\panji.maulana\\Movies\\IN_IMAGE
+#   FILE_PRIEVIEW: C:\\Users\\panji.maulana\\Movies\\IN
+#   FILE_PRIEVIEW_Image: C:\\Users\\panji.maulana\\Movies\\IN_IMAGE
+#   DOWNLOAD_HI_RES: C:\\Users\\panji.maulana\\Movies\\IN
+#   DOWNLOAD_HI_RES_Image: C:\\Users\\panji.maulana\\Movies\\IN_IMAGE
+#   # DOWNLOAD_LOW_RES: C:\\Users\\BabyBunny\\Desktop\\btv\\Video
+#   THUMBNAILS: C:\\Users\panji.maulana\\Movies\\THUMBNAIL
+# EXTENSION:
+#   FILE_DOWNLOAD: .mov
+# FTP:
+#   REMOTE_HOST: 192.168.10.243
+#   USERNAME: amberfin
+#   PASSWORD: 123amberfin
+---
+# # spring:
+# #   mvc:
+# #     hiddenmethod:
+# #       filter:
+# #         enabled: true
+# #   config:
+# #     activate:
+# #       on-profile: testing
+# #   application:
+# #     name: OneBasket
+# #   datasource:
+# #       url: jdbc:postgresql://localhost:5432/ingestdb
+# #       username: postgres
+# #       password: 123456
+# #       driverClassName: org.postgresql.Driver
+# #   jpa: 
+# #       database: default
+# #       hibernate: 
+# #          dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+# #          ddl-auto: update
+# #   thymeleaf:
+# #     cache: false
+# #     mode: HTML
+# #     encoding: UTF-8
+# #     prefix: classpath:/templates/
+# #   servlet:
+# #     multipart:
+# #       max-file-size: -1
+# #       max-request-size: -1
+# #   web:
+# #     resources:
+# #       static-locations: classpath:/static/
+# #       cache:
+# #         period: 0
+# # server:
+# #   port: 8082
+# #   error:
+# #     whitelabel:
+# #       enabled: false
+# #     path: /error
+# # # URL:
+# # #   FILE_IN: C:\\video
+# # #   FILE_PRIEVIEW: C:\\video
+# # #   DOWNLOAD_HI_RES: C:\\video
+# # #   DOWNLOAD_LOW_RES: C:\\video
+# # URL:
+# #   FILE_IN: \\192.168.10.243\\Amberfin\\amberfin_media_IN
+
+# #   FILE_IN_IMAGE: \\192.168.10.243\\Amberfin\\amberfin_media_IN\\Pic
+
+# #   FILE_PRIEVIEW: \\192.168.10.82\\preview\\OUT\\Lores
+
+# #   DOWNLOAD_HI_RES: \\192.168.10.82\\preview\\OUT\\Prores
+
+# #   THUMBNAILS: \\192.168.10.82\\preview\\OUT\\Lores\\thumb
+
+# #   FILE_PRIEVIEW_Image: \\192.168.10.243\\Amberfin\\amberfin_media_IN\\Pic
+
+# #   DOWNLOAD_HI_RES_Image: \\192.168.10.243\\Amberfin\\amberfin_media_IN\\Pic
+
+# # EXTENSION:
+# #   FILE_DOWNLOAD: .mov
+# # FTP:
+# #   REMOTE_HOST: 192.168.10.243
+# #   USERNAME: amberfin
+# #   PASSWORD: 123amberfin
+# # ---
+# # spring:
+# #   mvc:
+# #     hiddenmethod:
+# #       filter:
+# #         enabled: true
+# #   config:
+# #     activate:
+# #       on-profile: Rehan
+# #   application:
+# #     name: Rehan
+# #   datasource:
+# #       url: jdbc:postgresql://localhost:5432/btvIngest
+# #       username: postgres
+# #       password: post123
+# #       driverClassName: org.postgresql.Driver
+# #   jpa: 
+# #       database: default
+# #       hibernate: 
+# #          dialect: org.hibernate.dialect.PostgreSQLDialect
+# #          ddl-auto: update
+# #   thymeleaf:
+# #     cache: false
+# #     mode: HTML
+# #     encoding: UTF-8
+# #     prefix: classpath:/templates/
+# #   servlet:
+# #     multipart:
+# #       max-file-size: -1
+# #       max-request-size: -1
+# #   web:
+# #     resources:
+# #       static-locations: classpath:/static/
+# #       cache:
+# #         period: 0
+# # server:
+# #   port: 7077
+# #   error:
+# #     whitelabel:
+# #       enabled: false
+# #     path: /error
+# # URL:
+# #   FILE_IN: D:\\BtvInget\\Video
+# #   FILE_IN_IMAGE: D:\\BtvInget\\Image
+# #   FILE_PRIEVIEW: D:\\BtvInget\\Video
+# #   FILE_PRIEVIEW_Image: D:\\BtvInget\\Image
+# #   DOWNLOAD_HI_RES: D:\\BtvInget\\Video
+# #   DOWNLOAD_HI_RES_Image: D:\\BtvInget\\Image
+# #   # DOWNLOAD_LOW_RES: C:\\Users\\BabyBunny\\Desktop\\btv\\Video
+# #   THUMBNAILS: D:\\BtvInget\\Image
+# # # URL:
+# # #   FILE_IN: \\192.168.10.243\\Amberfin\\amberfin_media_IN
+# # #   FILE_PRIEVIEW: \\192.168.10.82\\preview\\OUT\\Lores
+# # #   DOWNLOAD_HI_RES: \\192.168.10.82\\preview\\OUT\\Prores
+# # #   DOWNLOAD_LOW_RES: \\192.168.10.82\\preview\\OUT\\Lores
+# # EXTENSION:
+# #   FILE_DOWNLOAD: .mp4
+# # # FTP:
+# # #   REMOTE_HOST: 192.168.10.243
+# # #   USERNAME: amberfin
+# # #   PASSWORD: 123amberfin
+# # ---
+# # spring:
+# #   mvc:
+# #     hiddenmethod:
+# #       filter:
+# #         enabled: true
+# #   config:
+# #     activate:
+# #       on-profile: Server
+# #   application:
+# #     name: Server
+# #   datasource:
+# #       url: jdbc:postgresql://localhost:5432/OneBasket
+# #       username: postgres
+# #       password: 123456
+# #       driverClassName: org.postgresql.Driver
+# #   jpa: 
+# #       database: default
+# #       hibernate: 
+# #          dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+# #          ddl-auto: update
+# #   thymeleaf:
+# #     cache: false
+# #     mode: HTML
+# #     encoding: UTF-8
+# #     prefix: classpath:/templates/
+# #   servlet:
+# #     multipart:
+# #       max-file-size: -1
+# #       max-request-size: -1
+# #   web:
+# #     resources:
+# #       static-locations: classpath:/static/
+# #       cache:
+# #         period: 0
+# # server:
+# #   port: 8082
+# #   error:
+# #     whitelabel:
+# #       enabled: false
+# #     path: /error
+# # # URL:
+# # #   FILE_IN: C:\\video
+# # #   FILE_PRIEVIEW: C:\\video
+# # #   DOWNLOAD_HI_RES: C:\\video
+# # #   DOWNLOAD_LOW_RES: C:\\video
+# # URL:
+# #   FILE_IN: \\192.168.10.243\\Amberfin\\amberfin_media_IN
+
+# #   FILE_IN_IMAGE: \\192.168.10.243\\Amberfin\\amberfin_media_IN\\Pic
+
+# #   FILE_PRIEVIEW: \\192.168.10.82\\preview\\OUT\\Lores
+
+# #   DOWNLOAD_HI_RES: \\192.168.10.82\\preview\\OUT\\Prores
+
+# #   THUMBNAILS: \\192.168.10.82\\preview\\OUT\\Lores\\thumb
+
+# #   FILE_PRIEVIEW_Image: \\192.168.10.243\\Amberfin\\amberfin_media_IN\\Pic
+
+# #   DOWNLOAD_HI_RES_Image: \\192.168.10.243\\Amberfin\\amberfin_media_IN\\Pic
+
+# # EXTENSION:
+# #   FILE_DOWNLOAD: .mov
+# # FTP:
+# #   REMOTE_HOST: 192.168.10.243
+# #   USERNAME: amberfin
+# #   PASSWORD: 123amberfin
+# # ---
