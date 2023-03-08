@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css" integrity="sha512-SbiR/eusphKoMVVXysTKG/7VseWii+Y3FdHrt0EpKgpToZeemhqHeZeLWLhJutz/2ut2Vw1uQEj2MbRF+TVBUA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>B-Universe</title>
+    <link rel="shortcut icon" sizes="16x16" th:href="@{/Images/BTV.ico}" />
+
+</head>
+
+<body th:style="'background-image:url('+@{/Images/back.png.png}+');background-size:cover;'">
+    <div class="container" >
+        <div class="row" style="justify-content: center;">
+            <img th:src="@{/Images/B_UNIVERSE_LOGO_COLOR.png}" style="height: 150px; width: auto;">
+        </div>
+        <div class="imageprofile mx-auto d-block" style="justify-content: center; height: 200px; width: 200px; box-shadow: 0 0 50px #ccc; border-radius: 50%; ">
+            <img src="Screenshot 2023-03-07 at 15.11.01.png" style="height: 100%; width: 100%; object-fit:cover; overflow: hidden; border-radius: 50%; ">
+        </div> 
+        <!-- http://wa.me/+628… -->
+        <div class="row" style="color: azure; text-align: center; justify-content: center;" >
+            <h1 style="font-weight: lighter; padding-top: 5%;">Panji Maulana Al Latief</h1>
+            <h3>IT Application</h3>
+            <h2 style="font-weight: lighter; width: 90%;">Commodity Square, Jl. Jend. Gatot Subroto Kav. 35-36, Kuningan Timur, Setiabudi, Jakarta Selatan</h2>
+        </div>
+        <div class="row pt-2" style="justify-content: center;">
+            <a class="btn btn-primary m-3" style="font-size: 60px; color: aliceblue; width: 25%; height: 15%;" href="mailto:panji.maulana.al@gmail.com" target="_blank"><i class="fa-regular fa-envelope"></i></a>    
+            <a class="btn btn-success m-3" style="font-size: 60px; color: aliceblue; width: 25%; height: 15%;" href="http://wa.me/+6287823658165" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+        </div>
+    </div>
+</body>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.min.js" integrity="sha512-1/RvZTcCDEUjY/CypiMz+iqqtaoQfAITmNSJY17Myp4Ms5mdxPS5UV7iOfdZoxcGhzFbOm6sntTKJppjvuhg4g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</html>
