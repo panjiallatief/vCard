@@ -30,7 +30,7 @@
         <div class="row">
             <form id="formperson" enctype="multipart/form-data">
                 <div class="row">
-                    <input type="file" id="filep" />
+                    <input name="files" type="file" id="filep" />
                 </div>
                 <label class="mt-3" style="color: white;">Nama Lengkap</label>
                 <input type="text" id="isinama" class="form-control mt-1" />
@@ -81,6 +81,16 @@
         // console.log(inputFile.length);
         var uri = `/InputPerson?nama=${$("#isinama").val()}&nowa=${$("#isino").val()}&email=${$("#isiemail").val()}&divisi=${$("#isidivisi").val()}`;
         var bodyFormData = new FormData();
+        var inputFile = document.getElementsByName("files");
+        listVideo = [];
+        for (var i = 0; i < inputFile.length; i++) {
+        var a = inputFile[i].files[0];
+        listVideo.push(a);
+        }
+        listVideo.forEach(video => {
+        bodyFormData.append("files", video);
+        bodyFormData.append("files", listVideo);
+        });
         axios({
             method: "post",
             url: uri,
