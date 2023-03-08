@@ -32,7 +32,7 @@
                 <div class="row">
                     <input name="files" type="file" id="filep" />
                 </div>
-                <!-- <input type="text" th:value="${session.username}" id="usernameee"/> -->
+                <input type="text" th:value="${session.username}" id="usernameee" hidden/>
                 <label class="mt-3" style="color: white;">Nama Lengkap</label>
                 <input type="text" id="isinama" class="form-control mt-1" />
                 <label class="mt-3" style="color: white;">Isi Divisi</label>
@@ -64,18 +64,20 @@
 <script th:inline="javascript">
     /*<![CDATA[*/
     $(document).ready(function () {
-        // getdata()
+        getdata()
     });
 
-    // function getdata(id) {
-    //     $.get(`/Person?id=${id}`, function (res) {
-    //         var per = res.data;
-    //         $("#names").text(per.nama);
-    //         $("#divisi").text(per.divisi);
-    //         $("#mailing").attr("href", "mailto:" + `${per.email}` + "");
-    //         $("#wa").attr("href", "http://wa.me/" + `${per.no_wa}` + "");
-    //     })
-    // }
+    function getdata(username) {
+        $.get(`/Person?username=${session.username}`, function (res) {
+            var per = res.data;
+            $("#isinama").val(per.nama);
+            $("#isidivisi").val(per.divisi);
+            $("#isino").val(per.nowa);
+            $("#isiemail").val(per.email);
+            // $("#mailing").attr("href", "mailto:" + `${per.email}` + "");
+            // $("#wa").attr("href", "http://wa.me/" + `${per.no_wa}` + "");
+        })
+    }
 
     function senddata() {
         // var inputFile = document.getElementsById("filep");
