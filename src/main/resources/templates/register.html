@@ -140,13 +140,14 @@
 
     function generateQR() {
         var usme = document.getElementById("usernameee").value;
-        $.ajax({
-            url: `/qrcode?link=139.255.52.68:8110/Person/${usme}`,
-            method: "get",
-            success: function () {
-                // location.reload();
-            }
-        });
+        // $.ajax({
+        //     url: `/qrcode?link=139.255.52.68:8110/Person/${usme}`,
+        //     method: "get",
+        //     success: function () {
+        //         // location.reload();
+        //     }
+        // });
+        window.open("http://localhost:8110/qrcode?link=139.255.52.68:8110/Person/" + `${usme}` + "", "_blank")
     }
 
 
