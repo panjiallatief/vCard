@@ -1,6 +1,7 @@
 package com.ecard.vCard.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -14,5 +15,5 @@ public interface PersonRepository extends JpaRepository<Person, Integer> {
     @Query(value = "SELECT * FROM person WHERE username = ?1",
         countQuery = "SELECT count(*) FROM person WHERE username = ?1",
         nativeQuery = true)
-    List<Person> findbyUsername(String username);
+    Optional <Person> findbyUsername(String username);
 }
