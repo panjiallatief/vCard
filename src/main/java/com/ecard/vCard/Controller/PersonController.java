@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.file.Files;
-import java.sql.Blob;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,19 +12,15 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.ldap.userdetails.LdapUserDetailsImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -39,7 +34,6 @@ import com.ecard.vCard.Entity.Person;
 import com.ecard.vCard.Repository.ImageRepository;
 import com.ecard.vCard.Repository.PersonRepository;
 import com.ecard.vCard.Util.GenereteCode;
-
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @Controller
@@ -77,7 +71,7 @@ public class PersonController {
     @GetMapping(value = "/Person/{username}")
     public String Person(@PathVariable (required = true) String username, Model model){
 
-        Person person = personRepository.findbyUsername(username).get();
+        com.ecard.vCard.Entity.Person person = personRepository.findbyUsername(username).get();
         model.addAttribute("nama", person.getNama());
         model.addAttribute("email", person.getEmail());
         model.addAttribute("wa", person.getNo_wa());
@@ -91,7 +85,7 @@ public class PersonController {
         MediaType.MULTIPART_FORM_DATA_VALUE }, produces = APPLICATION_JSON_VALUE, method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity<Map> InputPerson(@RequestParam String nama, @RequestParam String divisi, @RequestParam String email, 
-                                        @RequestParam String nowa, @RequestParam ("files") MultipartFile file) throws IOException {
+                                        @RequestParam String nowa, @RequestPart ("files") MultipartFile file) throws IOException {
         Map data = new HashMap<>();
 
         String originalExtension = "";
