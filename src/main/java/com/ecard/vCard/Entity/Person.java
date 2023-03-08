@@ -50,4 +50,7 @@ public class Person {
     @Column(name = "username")
     String username;
 
+    @Column(name = "namafile")
+    String namafile;
+
 }

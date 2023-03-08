@@ -58,12 +58,12 @@ public class PersonController {
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     @GetMapping(value = "/index")
-    public String yoyo() {
+    public String index() {
         return "index";
     }
 
     @GetMapping(value = "/")
-    public String Person(Authentication authentication, Model model) {
+    public String Persons(Authentication authentication, Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
         httpSession.setAttribute("username", username);
@@ -83,6 +83,8 @@ public class PersonController {
         model.addAttribute("email", person.getEmail());
         model.addAttribute("wa", person.getNo_wa());
         model.addAttribute("divisi", person.getDivisi());
+        model.addAttribute("username", person.getUsername());
+        model.addAttribute("namafile", person.getNamafile());
         return "index";
     }
 
@@ -104,6 +106,7 @@ public class PersonController {
         person.setEmail("mailto:" + email);
         person.setNo_wa("http://wa.me/+62" + nowa);
         person.setUsername(httpSession.getAttribute("username").toString());
+        person.setNamafile(namafile + "." + originalExtension);
         personRepository.save(person);
 
         try {
