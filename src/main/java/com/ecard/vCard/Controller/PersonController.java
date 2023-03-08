@@ -122,6 +122,14 @@ public class PersonController {
     return new ResponseEntity<>(data, HttpStatus.OK);
     }
 
+    @GetMapping(value = "/findusername")
+    public ResponseEntity<Map> findusername(@RequestParam(required = true) String username) {
+        Map data = new HashMap<>();
+        Person person = personRepository.findbyUsername(username).get();
+        data.put("data", person);
+        return new ResponseEntity<>(data, HttpStatus.OK);
+      }
+
     ////////////////////////////////////////////     Menampilkan atau Stream Image     ////////////////////////////////////////////
     @GetMapping(value = "/streamImage")
     public StreamingResponseBody handleRequest (@RequestParam String username, HttpServletResponse response) {

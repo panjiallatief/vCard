@@ -68,12 +68,12 @@
     });
 
     function getdata(username) {
-        var usm = document.getElementById("usernameee").val();
+        var usm = document.getElementById("usernameee").value;
         $.get(`/findusername?username=${usm}`, function (res) {
             var per = res.data;
             $("#isinama").val(per.nama);
             $("#isidivisi").val(per.divisi);
-            $("#isino").val(per.nowa);
+            $("#isino").val(per.no_wa);
             $("#isiemail").val(per.email);
             // $("#mailing").attr("href", "mailto:" + `${per.email}` + "");
             // $("#wa").attr("href", "http://wa.me/" + `${per.no_wa}` + "");
