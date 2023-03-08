@@ -19,7 +19,7 @@ import lombok.ToString;
 import java.sql.Blob;
 
 @Entity
-@Table(name = "asset")
+@Table(name = "person")
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Getter
 @Setter

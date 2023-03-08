@@ -20,6 +20,7 @@ public class CMDRUNNER implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         Person per = new Person(1, "Panji Maulana", "IT Application", "Panji@Gmail.com", "08123456789", null);
+            personRepository.save(per);
         logger.info("Has been created");
     }
     
