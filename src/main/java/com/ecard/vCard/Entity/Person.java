@@ -46,6 +46,9 @@ public class Person {
     @Column(name = "no_wa")
     String no_wa;
 
+    @Column(name = "username")
+    String username;
+
     @Column(name = "foto")
     Blob foto;
 }

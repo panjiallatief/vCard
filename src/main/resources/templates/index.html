@@ -28,8 +28,8 @@
         </div>
         <!-- http://wa.me/+628… -->
         <div class="row" style="color: azure; text-align: center; justify-content: center;">
-            <h1 style="font-weight: lighter; padding-top: 5%;" id="names"></h1>
-            <h3 id="divisi"></h3>
+            <h1 style="font-weight: lighter; padding-top: 5%;" th:text="${nama}"></h1>
+            <h3 th:text="${divisi}"></h3>
             <h2 style="font-weight: lighter; width: 90%;">Commodity Square, Jl. Jend. Gatot Subroto Kav. 35-36, Kuningan
                 Timur, Setiabudi, Jakarta Selatan</h2>
         </div>
@@ -53,18 +53,19 @@
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script th:inline="javascript">
     /*<![CDATA[*/
-    $(document).ready(function () {
-        getdata()
-    });
+    // $(document).ready(function () {
+    //     getdata()
+    // });
 
-    function getdata(id) {
-        $.get(`/Person?id=${id}`, function (res) {
-            var per = res.data;
-            $("#names").text(per.nama);
-            $("#divisi").text(per.divisi);
-            $("#mailing").attr("href", "mailto:" + `${per.email}` + "");
-            $("#wa").attr("href", "http://wa.me/" + `${per.no_wa}` + "");
-        })
-    }
+    // function getdata(id) {
+    //     $.get(`/Person?id=1`, function (res) {
+    //         var per = res.data;
+    //         $("#names").text(per.nama);
+    //         $("#divisi").text(per.divisi);
+    //         $("#mailing").attr("href", "mailto:" + `${per.email}` + "");
+    //         $("#wa").attr("href", "http://wa.me/" + `${per.no_wa}` + "");
+    //         console.log(per.nama, per.divisi)
+    //     })
+    // }
 /*]]>*/
 </script>

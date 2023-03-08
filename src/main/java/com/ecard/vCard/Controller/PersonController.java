@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,23 +32,35 @@ public class PersonController {
         return "register";
     }
 
-    @GetMapping(value = "/GetPerson")
-    public ResponseEntity<Map> GetPerson(@RequestParam (required = true) Integer id){
+    @GetMapping(value = "/Person")
+    public String Person(@RequestParam (required = true) Integer id, Model model){
         Map data = new HashMap<>();
         if (!personRepository.existsById(id)) {
-            System.out.println("GADA");
-            data.put("message", "Data Tidak Ditemukan");
-            return new ResponseEntity<>(data, HttpStatus.NOT_FOUND);
-          }
-          Person person = personRepository.findById(id).get();
-          System.out.println("ADA");
-        data.put("data", person);
-        return new ResponseEntity<>(data, HttpStatus.OK);
+            return "error";
+        }
+        Person person = personRepository.findById(id).get();
+        model.addAttribute("nama", person.getNama());
+        model.addAttribute("email", person.getEmail());
+        model.addAttribute("wa", person.getNo_wa());
+        model.addAttribute("divisi", person.getDivisi());
+        return "index";
     }
 
-    // @PostMapping(value = "/InputPerson")
-    // public ResponseEntity<Map> InputPerson(@RequestParam String nama, @RequestParam String divisi, @RequestParam String email, @RequestParam String nowa, @RequestParam Blob foto) {
+    @PostMapping(value = "/InputPerson")
+    public ResponseEntity<Map> InputPerson(@RequestParam String nama, @RequestParam String divisi, @RequestParam String email, 
+                                        @RequestParam String nowa, @RequestParam (required = false) Blob foto) {
+        Map data = new HashMap<>();
+        Person person = new Person();
+        person.setNama(nama);
+        person.setDivisi(divisi);
+        person.setEmail(email);
+        person.setNo_wa(nowa);
+        // person.setFoto(foto);
+        personRepository.save(person);
 
-    // }
+    data.put("icon", "success");
+    data.put("message", "Sukses Insert Data");
+    return new ResponseEntity<>(data, HttpStatus.OK);
+    }
     
 }
