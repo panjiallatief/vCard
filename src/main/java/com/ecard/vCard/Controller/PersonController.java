@@ -73,12 +73,9 @@ public class PersonController {
     }
 
     @GetMapping(value = "/Person")
-    public String Person(@RequestParam (required = true) Integer id, Model model){
+    public String Person(@RequestParam (required = true) String username, Model model){
         Map data = new HashMap<>();
-        if (!personRepository.existsById(id)) {
-            return "error";
-        }
-        Person person = personRepository.findById(id).get();
+        Person person = personRepository.findbyUsername(username).get();
         model.addAttribute("nama", person.getNama());
         model.addAttribute("email", person.getEmail());
         model.addAttribute("wa", person.getNo_wa());
