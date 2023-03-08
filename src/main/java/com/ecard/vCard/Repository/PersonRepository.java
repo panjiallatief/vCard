@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import com.ecard.vCard.Entity.Person;
 
-@Repository
+@Repository 
 public interface PersonRepository extends JpaRepository<Person, Integer> {
     
 }

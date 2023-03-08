@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ecard.vCard.Entity.Person;
-import com.ecard.vCard.Repository.PersonRepository;
+import com.ecard.vCard.Repository.PersonRepository; 
 
 @Controller
 public class PersonController {
