@@ -2,9 +2,14 @@ package com.ecard.vCard.Controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.file.Files;
 import java.sql.Blob;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -12,6 +17,10 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.ldap.userdetails.LdapUserDetailsImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,12 +31,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
 
 import com.ecard.vCard.Entity.Image;
 import com.ecard.vCard.Entity.Person;
 import com.ecard.vCard.Repository.ImageRepository;
 import com.ecard.vCard.Repository.PersonRepository;
-import com.ecard.vCard.Util.ImageUtil;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
@@ -41,15 +50,25 @@ public class PersonController {
     private ImageRepository imageRepository;
 
     @Autowired
+    private HttpSession httpSession;
+
+    @Autowired
     private Environment env;
 
-    @GetMapping(value = "/")
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    @GetMapping(value = "/index")
     public String yoyo() {
         return "index";
     }
 
-    @GetMapping(value = "/Register")
-    public String register() {
+    @GetMapping(value = "/")
+    public String Person(Authentication authentication, Model model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+        httpSession.setAttribute("username", username);
+        System.out.println(httpSession.getAttribute("username"));
+        System.out.println(username);
         return "register";
     }
 
@@ -77,13 +96,14 @@ public class PersonController {
         String originalExtension = "";
         String arrSplit[] = file.getOriginalFilename().split("\\.");
         originalExtension = arrSplit[arrSplit.length - 1];
-        String namafile = nama + "_" + divisi ;
+        String namafile = httpSession.getAttribute("username").toString();
 
         Person person = new Person();
         person.setNama(nama);
         person.setDivisi(divisi);
         person.setEmail("mailto:" + email);
         person.setNo_wa("http://wa.me/+62" + nowa);
+        person.setUsername(httpSession.getAttribute("username").toString());
         personRepository.save(person);
 
         try {
@@ -99,5 +119,22 @@ public class PersonController {
     data.put("icon", "success");
     data.put("message", "Sukses Insert Data");
     return new ResponseEntity<>(data, HttpStatus.OK);
+    }
+
+    ////////////////////////////////////////////     Menampilkan atau Stream Image     ////////////////////////////////////////////
+    @GetMapping(value = "/streamImage")
+    public StreamingResponseBody handleRequest (@RequestParam String username, HttpServletResponse response) {
+    response.setContentType("image/jpeg");
+        return new StreamingResponseBody() {
+            public void writeTo (OutputStream out) throws IOException {
+                File Image = new File(env.getProperty("URL.FILE_PRIEVIEW") + "/" + username);
+                try {
+                    byte[] fileContent = Files.readAllBytes(Image.toPath());
+                    out.write(fileContent);
+                } catch (IOException image) {
+                    System.out.println(image);
+                }
+            }
+        };
     }
 }

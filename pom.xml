@@ -89,10 +89,10 @@
 			<artifactId>mysql-connector-j</artifactId>
 			<scope>runtime</scope>
 		</dependency>
-		<!-- <dependency>
+		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-ldap</artifactId>
-		</dependency> -->
+		</dependency>
 		<dependency>
 			<groupId>com.unboundid</groupId>
 			<artifactId>unboundid-ldapsdk</artifactId>
@@ -125,15 +125,15 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-webflux</artifactId>
 		</dependency>
-		<!-- <dependency>
+		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-web</artifactId>
 			<type>jar</type>
-		</dependency> -->
-		<!-- <dependency>
+		</dependency>
+		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-config</artifactId>
-		</dependency> -->
+		</dependency>
 		<dependency>
 			<groupId>at.favre.lib</groupId>
 			<artifactId>bcrypt</artifactId>

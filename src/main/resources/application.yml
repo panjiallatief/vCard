@@ -44,7 +44,7 @@ server:
     path: /error
 URL:
   FILE_IN: C:\\Image
-#   FILE_PRIEVIEW: C:\\Image
+  FILE_PRIEVIEW: C:\\Image
 #   DOWNLOAD_HI_RES: C:\\Image
 #   DOWNLOAD_LOW_RES: C:\\Image
 # URL:
