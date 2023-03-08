@@ -68,7 +68,8 @@
     });
 
     function getdata(username) {
-        $.get(`/Person?username=${session.username}`, function (res) {
+        var usm = document.getElementById("usernameee").val();
+        $.get(`/Person/${usm}`, function (res) {
             var per = res.data;
             $("#isinama").val(per.nama);
             $("#isidivisi").val(per.divisi);
