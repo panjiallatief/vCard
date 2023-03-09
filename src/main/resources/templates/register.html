@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css"
         integrity="sha512-SbiR/eusphKoMVVXysTKG/7VseWii+Y3FdHrt0EpKgpToZeemhqHeZeLWLhJutz/2ut2Vw1uQEj2MbRF+TVBUA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.min.css"
+        integrity="sha384-ww0rVASXMoKHk188bKXg4fIZUrd5s80drZJWVP6tgTtu4AskG/wVqDnOEmhjJhvp" crossorigin="anonymous">
     <title>B-Universe</title>
     <link rel="shortcut icon" sizes="16x16" th:href="@{/Images/BTV.ico}" />
 
@@ -75,6 +77,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"
     integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA=="
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.all.min.js"
+    integrity="sha384-/Wx1NuqlgALfa1Do1U6Mer7quEDHOo8REf/0izoIrV8Y3Z/gtEHQc01STCEMM1LZ"
+    crossorigin="anonymous"></script>
 <script th:inline="javascript">
     /*<![CDATA[*/
     $(document).ready(function () {
@@ -124,7 +129,6 @@
                     timer: 1500,
                 }).then((result) => {
                     $("#modalLoading").modal("show");
-                    alert("Berhasil !");
                     location.reload();
                 });
             })
@@ -137,7 +141,6 @@
                     timer: 1500,
                 }).then((result) => {
                     $("#modalLoading").modal("show");
-                    alert("Berhasil !");
                     location.reload();
                 });
             });

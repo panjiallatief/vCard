@@ -69,7 +69,7 @@ public class PersonController {
     }
 
     @GetMapping(value = "/Person/{username}")
-    public String Person(@PathVariable (required = true) String username, Model model){
+    public String Person(@PathVariable(required = true) String username, Model model) {
 
         com.ecard.vCard.Entity.Person person = personRepository.findbyUsername(username).get();
         model.addAttribute("nama", person.getNama());
@@ -82,10 +82,11 @@ public class PersonController {
     }
 
     @RequestMapping(value = "/InputPerson", consumes = {
-        MediaType.MULTIPART_FORM_DATA_VALUE }, produces = APPLICATION_JSON_VALUE, method = RequestMethod.POST)
+            MediaType.MULTIPART_FORM_DATA_VALUE }, produces = APPLICATION_JSON_VALUE, method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<Map> InputPerson(@RequestParam String nama, @RequestParam String divisi, @RequestParam String email, 
-                                        @RequestParam String nowa, @RequestPart ("files") MultipartFile file) throws IOException {
+    public ResponseEntity<Map> InputPerson(@RequestParam String nama, @RequestParam String divisi,
+            @RequestParam String email,
+            @RequestParam String nowa, @RequestPart("files") MultipartFile file) throws IOException {
         Map data = new HashMap<>();
         String originalExtension = "";
         String arrSplit[] = file.getOriginalFilename().split("\\.");
@@ -107,13 +108,15 @@ public class PersonController {
             img.setId_person(person.getId_person());
             img.setFileName(namafile);
             imageRepository.save(img);
-          } catch (IOException e) {
-              System.out.println(e.getMessage());
-          }
-
-    data.put("icon", "success");
-    data.put("message", "data berhasil di insert");
-    return new ResponseEntity<>(data, HttpStatus.OK);
+        } catch (IOException e) {
+            data.put("icon", "error");
+            data.put("message", e.getMessage());
+            return new ResponseEntity<>(data, HttpStatus.NOT_FOUND);
+        }
+        System.out.println("SUCCESS");
+        data.put("icon", "success");
+        data.put("message", "data berhasil di insert");
+        return new ResponseEntity<>(data, HttpStatus.OK);
     }
 
     @GetMapping(value = "/findusername")
@@ -125,18 +128,19 @@ public class PersonController {
     }
 
     @RequestMapping(value = "/qrcode", method = RequestMethod.GET)
-      public void qrcode(@RequestParam String link, HttpServletResponse response) throws Exception {
+    public void qrcode(@RequestParam String link, HttpServletResponse response) throws Exception {
         response.setContentType("image/png");
         OutputStream outputStream = response.getOutputStream();
         outputStream.write(GenereteCode.getQRCodeImage(link, 500, 500));
     }
 
-    ////////////////////////////////////////////     Menampilkan atau Stream Image     ////////////////////////////////////////////
+    //////////////////////////////////////////// Menampilkan atau Stream Image
+    //////////////////////////////////////////// ////////////////////////////////////////////
     @GetMapping(value = "/streamImage")
-    public StreamingResponseBody handleRequest (@RequestParam String username, HttpServletResponse response) {
-    response.setContentType("image/jpeg");
+    public StreamingResponseBody handleRequest(@RequestParam String username, HttpServletResponse response) {
+        response.setContentType("image/jpeg");
         return new StreamingResponseBody() {
-            public void writeTo (OutputStream out) throws IOException {
+            public void writeTo(OutputStream out) throws IOException {
                 File Image = new File(env.getProperty("URL.FILE_PRIEVIEW") + "/" + username);
                 try {
                     byte[] fileContent = Files.readAllBytes(Image.toPath());
