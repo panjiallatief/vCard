@@ -87,7 +87,6 @@ public class PersonController {
     public ResponseEntity<Map> InputPerson(@RequestParam String nama, @RequestParam String divisi, @RequestParam String email, 
                                         @RequestParam String nowa, @RequestPart ("files") MultipartFile file) throws IOException {
         Map data = new HashMap<>();
-
         String originalExtension = "";
         String arrSplit[] = file.getOriginalFilename().split("\\.");
         originalExtension = arrSplit[arrSplit.length - 1];
@@ -113,7 +112,7 @@ public class PersonController {
           }
 
     data.put("icon", "success");
-    data.put("message", "Sukses Insert Data");
+    data.put("message", "data berhasil di insert");
     return new ResponseEntity<>(data, HttpStatus.OK);
     }
 
