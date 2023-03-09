@@ -114,9 +114,9 @@
             bodyFormData.append("files", video);
             bodyFormData.append("files", list);
         });
-        $.ajax({
-            url: uri,
+        axios({
             method: "post",
+            url: uri,
             data: bodyFormData,
             headers: { "Content-Type": "multipart/form-data" },
         })
