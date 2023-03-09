@@ -103,37 +103,46 @@
             bodyFormData.append("files", video);
             bodyFormData.append("files", list);
         });
-        axios({
-            method: "post",
+        $.ajax({
             url: uri,
+            method: "post",
             data: bodyFormData,
             headers: { "Content-Type": "multipart/form-data" },
+            success: function () {
+                
+            }
+        });
+        // axios({
+        //     method: "post",
+        //     url: uri,
+        //     data: bodyFormData,
+        //     headers: { "Content-Type": "multipart/form-data" },
 
-        })
-            .then(function (response) {
-                Swal.fire({
-                    position: "center",
-                    icon: response.data.icon,
-                    title: response.data.message,
-                    showConfirmButton: false,
-                    timer: 1500,
-                }).then((result) => {
-                    $("#modalLoading").modal("show");
-                    location.reload();
-                });
-            })
-            .catch(function (obj) {
-                Swal.fire({
-                    position: "center",
-                    icon: obj.response.data.icon,
-                    title: obj.response.data.message,
-                    showConfirmButton: false,
-                    timer: 1500,
-                }).then((result) => {
-                    $("#modalLoading").modal("show");
-                    location.reload();
-                });
-            });;
+        // })
+        //     .then(function (response) {
+        //         Swal.fire({
+        //             position: "center",
+        //             icon: response.data.icon,
+        //             title: response.data.message,
+        //             showConfirmButton: false,
+        //             timer: 1500,
+        //         }).then((result) => {
+        //             $("#modalLoading").modal("show");
+        //             location.reload();
+        //         });
+        //     })
+        //     .catch(function (obj) {
+        //         Swal.fire({
+        //             position: "center",
+        //             icon: obj.response.data.icon,
+        //             title: obj.response.data.message,
+        //             showConfirmButton: false,
+        //             timer: 1500,
+        //         }).then((result) => {
+        //             $("#modalLoading").modal("show");
+        //             location.reload();
+        //         });
+        //     });;
         console.log(uri);
         // location.reload();
     }
