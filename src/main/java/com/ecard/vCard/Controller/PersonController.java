@@ -113,7 +113,6 @@ public class PersonController {
             data.put("message", e.getMessage());
             return new ResponseEntity<>(data, HttpStatus.NOT_FOUND);
         }
-        System.out.println("SUCCESS");
         data.put("icon", "success");
         data.put("message", "data berhasil di insert");
         return new ResponseEntity<>(data, HttpStatus.OK);
