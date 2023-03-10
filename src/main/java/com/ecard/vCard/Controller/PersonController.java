@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.websocket.Decoder.Text;
 
+import org.apache.poi.ss.formula.functions.Replace;
 import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -42,9 +43,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
 
-import com.ecard.vCard.Entity.Image;
 import com.ecard.vCard.Entity.Person;
-import com.ecard.vCard.Repository.ImageRepository;
 import com.ecard.vCard.Repository.PersonRepository;
 import com.ecard.vCard.Util.GenereteCode;
 
@@ -57,9 +56,6 @@ public class PersonController {
 
     @Autowired
     private PersonRepository personRepository;
-
-    @Autowired
-    private ImageRepository imageRepository;
 
     @Autowired
     private HttpSession httpSession;
@@ -98,29 +94,13 @@ public class PersonController {
         return "index";
     }
 
-    // @RequestMapping(value = "/InputPerson", consumes = {
-    //         MediaType.MULTIPART_FORM_DATA_VALUE }, produces = APPLICATION_JSON_VALUE, method = RequestMethod.POST)
-    // @ResponseBody
     @PostMapping(value = "/InputPerson")
     public ResponseEntity<Map> InputPerson(@RequestParam String nama, @RequestParam String divisi,
             @RequestParam String email,
             @RequestParam String nowa, @RequestParam String Image) throws IOException {
         Map data = new HashMap<>();
-        // String originalExtension = "";
-        // String arrSplit[] = file.getOriginalFilename().split("\\.");
-        // originalExtension = arrSplit[arrSplit.length - 1];
         String namafile = httpSession.getAttribute("username").toString();
-        
-        // try {
-        //     byte[] imagebyte = Base64.decodeBase64(Image);
-        //     String directory = env.getProperty("URL.FILE_IN") + namafile + ".jpg";
-        //     new FileOutputStream(directory).write(imagebyte);
-        // } catch (Exception e){
-        //     data.put("icon", "error");
-        //     data.put("message", e.getMessage());
-        //     return new ResponseEntity<>(data, HttpStatus.NOT_FOUND);
-        // }
-
+        String gambar = Image.replace(" ", "+");
         Person person = new Person();
         person.setNama(nama);
         person.setDivisi(divisi);
@@ -128,22 +108,8 @@ public class PersonController {
         person.setNo_wa("http://wa.me/+62" + nowa);
         person.setUsername(httpSession.getAttribute("username").toString());
         person.setNamafile(namafile + ".jpg");
-        person.setImage(Image);
+        person.setImage(gambar);
         personRepository.save(person);
-
-        
-
-        // try {
-        //     file.transferTo(new File(env.getProperty("URL.FILE_IN") + "/" + namafile + "." + originalExtension));
-        //     Image img = new Image();
-        //     img.setId_person(person.getId_person());
-        //     img.setFileName(namafile);
-        //     imageRepository.save(img);
-        // } catch (IOException e) {
-        //     data.put("icon", "error");
-        //     data.put("message", e.getMessage());
-        //     return new ResponseEntity<>(data, HttpStatus.NOT_FOUND);
-        // }
         data.put("icon", "success");
         data.put("message", "data berhasil di insert");
         return new ResponseEntity<>(data, HttpStatus.OK);
@@ -162,34 +128,5 @@ public class PersonController {
         response.setContentType("image/png");
         OutputStream outputStream = response.getOutputStream();
         outputStream.write(GenereteCode.getQRCodeImage(link, 500, 500));
-    }
-
-    //////////////////////////////////////////// Menampilkan atau Stream Image
-    //////////////////////////////////////////// ////////////////////////////////////////////
-    @GetMapping(value = "/streamImage")
-    public void handleRequest(@RequestParam String foto, HttpServletResponse response) throws IOException {
-    //     response.setContentType("image/jpeg");
-    //     return new StreamingResponseBody() {
-    //         public void writeTo(OutputStream out) throws IOException {
-    //             // try {
-    //             //     byte[] imagebyte = Base64.decodeBase64(foto);
-    //             //     new FileOutputStream().write(imagebyte);
-    //             // } catch (Exception e){
-    //             //     data.put("icon", "error");
-    //             //     data.put("message", e.getMessage());
-    //             //     return new ResponseEntity<>(data, HttpStatus.NOT_FOUND);
-    //             // }
-    //             // File Image = new File(env.getProperty("URL.FILE_PRIEVIEW") + "/" + username);
-                String data = foto;
-                String base64Image = data.split(",")[1];
-                byte[] imageBytes = javax.xml.bind.DatatypeConverter.parseBase64Binary(base64Image);
-                try (InputStream inputStream = new ByteArrayInputStream(imageBytes)) {
-                    StreamUtils.copy(inputStream, response.getOutputStream());
-                        response.setContentType(MediaType.IMAGE_PNG_VALUE);
-                } catch (IOException image) {
-                    System.out.println(image);
-                }
-    //         }
-    //     };
     }
 }
