@@ -135,7 +135,7 @@ public class PersonController {
         person.setNama(nama);
         person.setDivisi(divisi);
         person.setEmail("mailto:" + email);
-        person.setNo_wa(nowa);
+        person.setNo_wa("http://wa.me/+62" + nowa);
         person.setUsername(httpSession.getAttribute("username").toString());
         person.setNamafile(namafile + ".jpg");
         person.setImage(gambar);
