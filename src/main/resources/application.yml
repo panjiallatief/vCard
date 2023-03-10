@@ -37,6 +37,7 @@ spring:
       cache:
         period: 0
 server:
+  max-http-header-size: 10000000
   port: 8110
   error:
     whitelabel:

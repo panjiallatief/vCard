@@ -37,4 +37,9 @@ public class Image {
 
     @Column(name = "FileName")
     private String FileName;
+    
+    @Column(name = "Foto", columnDefinition = "TEXT")
+    private String Image;
+
+
 }
