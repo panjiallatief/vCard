@@ -117,7 +117,7 @@ public class PersonController {
     }
 
     @PutMapping(value = "/PutPerson")
-    public ResponseEntity<Map> PutPerson(@RequestParam (required = true) Strring username, @RequestParam String nama, @RequestParam String divisi,
+    public ResponseEntity<Map> PutPerson(@RequestParam (required = true) String username, @RequestParam String nama, @RequestParam String divisi,
             @RequestParam String email,
             @RequestParam String nowa, @RequestParam String Image) throws IOException {
         Map data = new HashMap<>();
