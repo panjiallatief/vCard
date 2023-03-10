@@ -49,7 +49,7 @@
                 <label class="mt-3" style="color: white;">Email</label>
                 <input type="text" id="isiemail" class="form-control mt-1" />
             </form>
-            <img id="resultcrop" name="files" src="">
+            <img id="resultcrop" name="files" value="" src="" hidden>
             <a class="btn btn-primary mt-5" type="button" id="use">Simpan</a>
             <a class="btn btn-outline-warning mt-3" type="button" onclick="generateQR()">Generate QR</a>
         </div>
@@ -132,7 +132,6 @@
                 $('#use').on('click', function () {
                     resize.result('base64').then(function (dataImg) {
                         var data = [{ image: dataImg }, { name: 'myimgage.jpg' }];
-                        var uri = `/InputPerson?nama=${$("#isinama").val()}&nowa=${$("#isino").val()}&email=${$("#isiemail").val()}&divisi=${$("#isidivisi").val()}&Image=${dataImg}`;
                         // var bodyFormData = new FormData();
                         // var inputFile = document.getElementById("filep");
                         // list = [];
@@ -145,6 +144,12 @@
                         //     bodyFormData.append("files", dataImg);
                         //     bodyFormData.append("files", list);
                         // });
+                        $('#filep').attr('value', dataImg);
+                        $('#resultcrop').attr('src', dataImg);
+                        $('#resultcrop').attr('value', dataImg);
+
+
+                        var uri = `/InputPerson?nama=${$("#isinama").val()}&nowa=${$("#isino").val()}&email=${$("#isiemail").val()}&divisi=${$("#isidivisi").val()}&Image=${$("#resultcrop").val()}`;
                         axios({
                             method: "post",
                             url: uri,
@@ -176,8 +181,7 @@
                                     // location.reload();
                                 });
                             });
-                        $('#filep').attr('value', dataImg);
-                        $('#resultcrop').attr('src', dataImg);
+                        
 
                     })
 
