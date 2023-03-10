@@ -17,6 +17,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.css"
         integrity="sha512-2eMmukTZtvwlfQoG8ztapwAH5fXaQBzaMqdljLopRSA0i6YKM8kBAOrSSykxu9NN9HrtD45lIqfONLII2AFL/Q=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-formhelpers/2.3.0/css/bootstrap-formhelpers.css"
+        integrity="sha384-umkm0vkZUa1vwHtzKo2Iv3MEVY4LUQz+Z8ZesVn86xU+zreLCdLrjxCN8L/FUeWD" crossorigin="anonymous">
     <title>B-Universe</title>
     <link rel="shortcut icon" sizes="16x16" th:href="@{/Images/BTV.ico}" />
 
@@ -27,13 +30,9 @@
         <div class="row" style="justify-content: center;">
             <img th:src="@{/Images/B_UNIVERSE_LOGO_COLOR.png}" style="height: 150px; width: auto;">
         </div>
-        <!-- <div class="imageprofile mx-auto d-block"
-            style="justify-content: center; height: 200px; width: 200px; box-shadow: 0 0 50px #ccc; border-radius: 50%; ">
-            <img src="Screenshot 2023-03-07 at 15.11.01.png"
-                style="height: 100%; width: 100%; object-fit:cover; overflow: hidden; border-radius: 50%; ">
-        </div> -->
-        <!-- http://wa.me/+628… -->
-        <div class="row">
+        <div class="row justify-content-center">
+            <img id="before" style="width: auto; height: 200px;" src="" class="center mb-3">
+
             <form id="formperson" action="#" enctype="multipart/form-data">
                 <div class="row">
                     <input class="form-control" type="file" id="filep" accept="image/*" />
@@ -44,8 +43,8 @@
                 <input type="text" id="isinama" class="form-control mt-1" />
                 <label class="mt-3" style="color: white;">Isi Divisi</label>
                 <input type="text" id="isidivisi" class="form-control mt-1" />
-                <label class="mt-3" style="color: white;">No Whatsapps</label>
-                <input type="number" id="isino" class="form-control mt-1" />
+                <label class="mt-3" style="color: white;">No WhatsApp</label>
+                <input type="text" id="isino" class="form-control bfh-phone mt-1" data-format="+62 ddd-dddd-dddd" />
                 <label class="mt-3" style="color: white;">Email</label>
                 <input type="text" id="isiemail" class="form-control mt-1" />
             </form>
@@ -90,23 +89,14 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.js"
     integrity="sha512-vUJTqeDCu0MKkOhuI83/MEX5HSNPW+Lw46BA775bAWIp1Zwgz3qggia/t2EnSGB9GoS2Ln6npDmbJTdNhHy1Yw=="
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-formhelpers/2.3.0/js/bootstrap-formhelpers.js"
+    integrity="sha384-nAxNFVf5b1TUTdxcKQ3AKNzEjTfZmvDvMbOWKubsty3ma0DxFtbYfioZUyTr5Ad+"
+    crossorigin="anonymous"></script>
 <script th:inline="javascript">
     /*<![CDATA[*/
     $(document).ready(function () {
-        getdata()
+        getdata();
 
-        // $uploadCrop = $('#filep').croppie({
-        //     enableExif: true,
-        //     viewport: {
-        //         width: 200,
-        //         height: 200,
-        //         type: 'circle'
-        //     },
-        //     boundary: {
-        //         width: 300,
-        //         height: 300
-        //     }
-        // });
     });
 
     function readURL(input) {
@@ -128,31 +118,17 @@
                     // enableResize: true,
                     enableOrientation: true
                 });
-                // $('#use').fadeIn();
+                $('#use').fadeIn();
                 $('#use').on('click', function () {
                     resize.result('base64').then(function (dataImg) {
                         var data = [{ image: dataImg }, { name: 'myimgage.jpg' }];
-                        // var bodyFormData = new FormData();
-                        // var inputFile = document.getElementById("filep");
-                        // list = [];
-                        // for (var i = 0; i < inputFile.length; i++) {
-                        //     var a = inputFile[1].files[0];
-                        // list.push(a);
-                        // }
-                        // list.forEach(video => {
-                        //     bodyFormData.append("files", video);
-                        //     bodyFormData.append("files", dataImg);
-                        //     bodyFormData.append("files", list);
-                        // });
                         $('#filep').attr('value', dataImg);
                         $('#resultcrop').attr('src', dataImg);
-                        // $('#resultcrop').attr('value', dataImg);
                         var poto = document.getElementById("resultcrop").src;
                         var uri = `/InputPerson?nama=${$("#isinama").val()}&nowa=${$("#isino").val()}&email=${$("#isiemail").val()}&divisi=${$("#isidivisi").val()}&Image=${poto}`;
                         axios({
                             method: "post",
                             url: uri,
-                            // data: bodyFormData,
                             headers: { "Content-Type": "multipart/form-data" },
                         })
                             .then(function (response) {
@@ -163,7 +139,7 @@
                                     showConfirmButton: false,
                                     timer: 1500,
                                 }).then((result) => {
-                                    console.log(poto);
+                                    console.log($("#isino").val());
                                     $("#modalLoading").modal("show");
                                     location.reload();
                                 });
@@ -180,7 +156,49 @@
                                     location.reload();
                                 });
                             });
-                        
+
+
+                    })
+
+                })
+                $('#update').on('click', function () {
+                    resize.result('base64').then(function (dataImg) {
+                        var data = [{ image: dataImg }, { name: 'myimgage.jpg' }];
+                        $('#filep').attr('value', dataImg);
+                        $('#resultcrop').attr('src', dataImg);
+                        var poto = document.getElementById("resultcrop").src;
+                        var uri = `/InputPerson?nama=${$("#isinama").val()}&nowa=${$("#isino").val()}&email=${$("#isiemail").val()}&divisi=${$("#isidivisi").val()}&Image=${poto}`;
+                        axios({
+                            method: "post",
+                            url: uri,
+                            headers: { "Content-Type": "multipart/form-data" },
+                        })
+                            .then(function (response) {
+                                Swal.fire({
+                                    position: "center",
+                                    icon: response.data.icon,
+                                    title: response.data.message,
+                                    showConfirmButton: false,
+                                    timer: 1500,
+                                }).then((result) => {
+                                    console.log($("#isino").val());
+                                    $("#modalLoading").modal("show");
+                                    location.reload();
+                                });
+                            })
+                            .catch(function (obj) {
+                                Swal.fire({
+                                    position: "center",
+                                    icon: obj.response.data.icon,
+                                    title: obj.response.data.message,
+                                    showConfirmButton: false,
+                                    timer: 1500,
+                                }).then((result) => {
+                                    $("#modalLoading").modal("show");
+                                    location.reload();
+                                });
+                            });
+
 
                     })
 
@@ -194,77 +212,32 @@
         readURL(this);
     });
 
-    function getdata(username) {
+    function getdata() {
         var usm = document.getElementById("usernameee").value;
-        $.get(`/findusername?username=${usm}`, function (res) {
-            var per = res.data;
-            $("#isinama").val(per.nama);
-            $("#isidivisi").val(per.divisi);
-            $("#isino").val(per.no_wa);
-            $("#isiemail").val(per.email);
-            // $("#mailing").attr("href", "mailto:" + `${per.email}` + "");
-            // $("#wa").attr("href", "http://wa.me/" + `${per.no_wa}` + "");
-        })
+        if (usm != null) {
+            $.get(`/findusername?username=${usm}`, function (res) {
+                var per = res.data;
+                $("#isinama").val(per.nama);
+                $("#isidivisi").val(per.divisi);
+                $("#isino").val(per.no_wa);
+                $("#isiemail").val(per.email);
+                $("#before").attr('src', (per.image));
+                document.getElementById("use").innerHTML = "UPDATE DATA";
+                document.getElementById("use").id = "update";
+                
+            })
+        } else {
+            document.getElementById("use").innerHTML = "SIMPAN DATA";
+
+
+        }
+
     }
 
-    function senddata() {
-        // var inputFile = document.getElementsById("filep");
-        // console.log(inputFile.length);
-        var uri = `/InputPerson?nama=${$("#isinama").val()}&nowa=${$("#isino").val()}&email=${$("#isiemail").val()}&divisi=${$("#isidivisi").val()}`;
-        var bodyFormData = new FormData();
-        var inputFile = document.getElementsByName("files");
-        list = [];
-        for (var i = 0; i < inputFile.length; i++) {
-            var a = inputFile[i].value;
-            list.push(a);
-        }
-        list.forEach(video => {
-            bodyFormData.append("files", video);
-            bodyFormData.append("files", list);
-        });
-        axios({
-            method: "post",
-            url: uri,
-            data: bodyFormData,
-            headers: { "Content-Type": "multipart/form-data" },
-        })
-            .then(function (response) {
-                Swal.fire({
-                    position: "center",
-                    icon: response.data.icon,
-                    title: response.data.message,
-                    showConfirmButton: false,
-                    timer: 1500,
-                }).then((result) => {
-                    $("#modalLoading").modal("show");
-                    location.reload();
-                });
-            })
-            .catch(function (obj) {
-                Swal.fire({
-                    position: "center",
-                    icon: obj.response.data.icon,
-                    title: obj.response.data.message,
-                    showConfirmButton: false,
-                    timer: 1500,
-                }).then((result) => {
-                    $("#modalLoading").modal("show");
-                    location.reload();
-                });
-            });
-        console.log(uri);
-        // location.reload();
-    }
+
 
     function generateQR() {
         var usme = document.getElementById("usernameee").value;
-        // $.ajax({
-        //     url: `/qrcode?link=139.255.52.68:8110/Person/${usme}`,
-        //     method: "get",
-        //     success: function () {
-        //         // location.reload();
-        //     }
-        // });
         window.open("http://139.255.52.68:8110/qrcode?link=http://139.255.52.68:8110/Person/" + `${usme}` + "", "_blank")
     }
 
