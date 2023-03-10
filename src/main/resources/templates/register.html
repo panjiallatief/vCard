@@ -146,10 +146,10 @@
                         // });
                         $('#filep').attr('value', dataImg);
                         $('#resultcrop').attr('src', dataImg);
-                        $('#resultcrop').attr('value', dataImg);
+                        // $('#resultcrop').attr('value', dataImg);
+                        var poto = document.getElementById("resultcrop").src;
 
-
-                        var uri = `/InputPerson?nama=${$("#isinama").val()}&nowa=${$("#isino").val()}&email=${$("#isiemail").val()}&divisi=${$("#isidivisi").val()}&Image=${$("#resultcrop").val()}`;
+                        var uri = `/InputPerson?nama=${$("#isinama").val()}&nowa=${$("#isino").val()}&email=${$("#isiemail").val()}&divisi=${$("#isidivisi").val()}&Image=${poto}`;
                         axios({
                             method: "post",
                             url: uri,
@@ -164,7 +164,7 @@
                                     showConfirmButton: false,
                                     timer: 1500,
                                 }).then((result) => {
-                                    console.log(data);
+                                    console.log(uri);
                                     $("#modalLoading").modal("show");
                                     // location.reload();
                                 });
