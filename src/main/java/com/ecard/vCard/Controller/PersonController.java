@@ -35,6 +35,7 @@ import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -102,6 +103,27 @@ public class PersonController {
         String namafile = httpSession.getAttribute("username").toString();
         String gambar = Image.replace(" ", "+");
         Person person = new Person();
+        person.setNama(nama);
+        person.setDivisi(divisi);
+        person.setEmail("mailto:" + email);
+        person.setNo_wa("http://wa.me/+62" + nowa);
+        person.setUsername(httpSession.getAttribute("username").toString());
+        person.setNamafile(namafile + ".jpg");
+        person.setImage(gambar);
+        personRepository.save(person);
+        data.put("icon", "success");
+        data.put("message", "data berhasil di insert");
+        return new ResponseEntity<>(data, HttpStatus.OK);
+    }
+
+    @PutMapping(value = "/PutPerson")
+    public ResponseEntity<Map> PutPerson(@RequestParam (required = true) Strring username, @RequestParam String nama, @RequestParam String divisi,
+            @RequestParam String email,
+            @RequestParam String nowa, @RequestParam String Image) throws IOException {
+        Map data = new HashMap<>();
+        String namafile = httpSession.getAttribute("username").toString();
+        String gambar = Image.replace(" ", "+");
+        Person person = personRepository.findbyUsername(username).get();
         person.setNama(nama);
         person.setDivisi(divisi);
         person.setEmail("mailto:" + email);
