@@ -148,8 +148,8 @@
                         $('#resultcrop').attr('src', dataImg);
                         // $('#resultcrop').attr('value', dataImg);
                         var poto = document.getElementById("resultcrop").src;
-
-                        var uri = `/InputPerson?nama=${$("#isinama").val()}&nowa=${$("#isino").val()}&email=${$("#isiemail").val()}&divisi=${$("#isidivisi").val()}&Image=${poto}`;
+                        var kirimpoto = poto.replace(" ", "+");
+                        var uri = `/InputPerson?nama=${$("#isinama").val()}&nowa=${$("#isino").val()}&email=${$("#isiemail").val()}&divisi=${$("#isidivisi").val()}&Image=${kirimpoto}`;
                         axios({
                             method: "post",
                             url: uri,
