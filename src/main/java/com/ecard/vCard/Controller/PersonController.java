@@ -104,7 +104,7 @@ public class PersonController {
     }
 
     @PostMapping(value = "/InputPerson")
-    public ResponseEntity<Map> InputPerson(@RequestParam String nama, @RequestParam String divisi,
+    public ResponseEntity<Map> InputPerson(@RequestParam String nama, @RequestParam String divisi, @RequestParam String jabatan,
             @RequestParam String email,
             @RequestParam String nowa, @RequestParam String Image) throws IOException {
         Map data = new HashMap<>();
@@ -117,6 +117,7 @@ public class PersonController {
         person.setNo_wa("http://wa.me/+62" + nowa);
         person.setUsername(httpSession.getAttribute("username").toString());
         person.setNamafile(namafile + ".jpg");
+        person.setJabatan(jabatan);
         person.setImage(gambar);
         personRepository.save(person);
         data.put("icon", "success");
@@ -125,7 +126,7 @@ public class PersonController {
     }
 
     @PutMapping(value = "/PutPerson")
-    public ResponseEntity<Map> PutPerson(@RequestParam (required = true) String username, @RequestParam String nama, @RequestParam String divisi,
+    public ResponseEntity<Map> PutPerson(@RequestParam (required = true) String username, @RequestParam String nama, @RequestParam String divisi, @RequestParam String jabatan, 
             @RequestParam String email,
             @RequestParam String nowa, @RequestParam String Image) throws IOException {
         Map data = new HashMap<>();
@@ -134,6 +135,7 @@ public class PersonController {
         Person person = personRepository.findbyUsername(username).get();
         person.setNama(nama);
         person.setDivisi(divisi);
+        person.setJabatan(jabatan);
         person.setEmail("mailto:" + email);
         person.setNo_wa("http://wa.me/+62" + nowa);
         person.setUsername(httpSession.getAttribute("username").toString());

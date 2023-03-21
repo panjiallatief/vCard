@@ -53,6 +53,9 @@ public class Person {
     @Column(name = "namafile")
     String namafile;
 
+    @Column(name = "jabatan")
+    String jabatan;
+
     @Column(name = "Foto", columnDefinition = "TEXT")
     private String Image;
 
