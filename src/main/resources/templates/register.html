@@ -179,7 +179,10 @@
                         var poto = document.getElementById("resultcrop").src;
                         var w = document.getElementById("isino").value;
                         var a = w.replace("+62 ", "").replace("-", "").replace("-", "");
-                        var uri = `/PutPerson?nama=${$("#isinama").val()}&nowa=${a}&email=${$("#isiemail").val()}&divisi=${$("#isidivisi").val()}&Image=${poto}&username=${usme}`;
+
+                        var jab = document.getElementById("isijabatan").value.toUpperCase();
+                        var divi = document.getElementById("isidivisi").value.toUpperCase();
+                        var uri = `/PutPerson?nama=${$("#isinama").val()}&nowa=${a}&email=${$("#isiemail").val()}&jabatan=${jab}&divisi=${divi}&Image=${poto}&username=${usme}`;
                         axios({
                             method: "put",
                             url: uri,
