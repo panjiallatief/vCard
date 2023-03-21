@@ -179,7 +179,6 @@
                         var poto = document.getElementById("resultcrop").src;
                         var w = document.getElementById("isino").value;
                         var a = w.replace("+62 ", "").replace("-", "").replace("-", "");
-
                         var jab = document.getElementById("isijabatan").value.toUpperCase();
                         var divi = document.getElementById("isidivisi").value.toUpperCase();
                         var uri = `/PutPerson?nama=${$("#isinama").val()}&nowa=${a}&email=${$("#isiemail").val()}&jabatan=${jab}&divisi=${divi}&Image=${poto}&username=${usme}`;
@@ -233,14 +232,10 @@
         if (usm != null) {
             $.get(`/findusername?username=${usm}`, function (res) {
                 var per = res.data;
-                var ma = document.getElementById("isiemail").value;
-                var mail = ma.replace("mailto:", "");
-                var now = document.getElementById("isino").value;
-                var nowa = now.replace("http://wa.me/+62", "");
                 $("#isinama").val(per.nama);
                 $("#isidivisi").val(per.divisi);
-                $("#isino").val(nowa);
-                $("#isiemail").val(mail);
+                $("#isino").val(per.nowa);
+                $("#isiemail").val(per.mail);
                 $("#before").attr('src', (per.image));
                 document.getElementById("use").innerHTML = "UPDATE DATA";
                 document.getElementById("use").id = "update";
