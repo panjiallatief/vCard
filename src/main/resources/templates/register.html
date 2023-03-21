@@ -170,7 +170,54 @@
                     })
 
                 })
+                $('#update').on('click', function () {
+                    resize.result('base64').then(function (dataImg) {
+                        var data = [{ image: dataImg }, { name: 'myimgage.jpg' }];
+                        $('#filep').attr('value', dataImg);
+                        $('#resultcrop').attr('src', dataImg);
+                        var usme = document.getElementById("usernameee").value;
+                        var poto = document.getElementById("resultcrop").src;
+                        var w = document.getElementById("isino").value;
+                        var a = w.replace("+62 ", "").replace("-", "").replace("-", "");
+                        var jab = document.getElementById("isijabatan").value.toUpperCase();
+                        var divi = document.getElementById("isidivisi").value.toUpperCase();
+                        var uri = `/PutPerson?nama=${$("#isinama").val()}&nowa=${a}&email=${$("#isiemail").val()}&jabatan=${jab}&divisi=${divi}&Image=${poto}&username=${usme}`;
+                        axios({
+                            method: "put",
+                            url: uri,
+                            headers: { "Content-Type": "multipart/form-data" },
+                        })
+                            .then(function (response) {
+                                Swal.fire({
+                                    position: "center",
+                                    icon: response.data.icon,
+                                    title: response.data.message,
+                                    showConfirmButton: false,
+                                    timer: 1500,
+                                }).then((result) => {
+                                    console.log($("#isino").val());
+                                    console.log(a);
+                                    $("#modalLoading").modal("show");
+                                    location.reload();
+                                });
+                            })
+                            .catch(function (obj) {
+                                Swal.fire({
+                                    position: "center",
+                                    icon: obj.response.data.icon,
+                                    title: obj.response.data.message,
+                                    showConfirmButton: false,
+                                    timer: 1500,
+                                }).then((result) => {
+                                    $("#modalLoading").modal("show");
+                                    location.reload();
+                                });
+                            });
 
+
+                    })
+
+                })
             }
             reader.readAsDataURL(input.files[0]);
         }
@@ -180,73 +227,6 @@
         readURL(this);
     });
 
-    $('#update').on('click', function () {
-        var reader = new FileReader();
-        reader.onload = function (e) {
-            $('#my-image').attr('src', e.target.result);
-            var resize = new Croppie($('#my-image')[0], {
-                viewport: {
-                    width: 200,
-                    height: 200,
-                    type: 'circle'
-                },
-                boundary: {
-                    width: 300,
-                    height: 300
-                },
-                // showZoomer: false,
-                // enableResize: true,
-                enableOrientation: true
-            });
-            resize.result('base64').then(function (dataImg) {
-                var data = [{ image: dataImg }, { name: 'myimgage.jpg' }];
-                $('#filep').attr('value', dataImg);
-                $('#resultcrop').attr('src', dataImg);
-                var usme = document.getElementById("usernameee").value;
-                var poto = document.getElementById("resultcrop").src;
-                var w = document.getElementById("isino").value;
-                var a = w.replace("+62 ", "").replace("-", "").replace("-", "");
-                var jab = document.getElementById("isijabatan").value.toUpperCase();
-                var divi = document.getElementById("isidivisi").value.toUpperCase();
-                var uri = `/PutPerson?nama=${$("#isinama").val()}&nowa=${a}&email=${$("#isiemail").val()}&jabatan=${jab}&divisi=${divi}&Image=${poto}&username=${usme}`;
-                axios({
-                    method: "put",
-                    url: uri,
-                    headers: { "Content-Type": "multipart/form-data" },
-                })
-                    .then(function (response) {
-                        Swal.fire({
-                            position: "center",
-                            icon: response.data.icon,
-                            title: response.data.message,
-                            showConfirmButton: false,
-                            timer: 1500,
-                        }).then((result) => {
-                            console.log($("#isino").val());
-                            console.log(a);
-                            $("#modalLoading").modal("show");
-                            location.reload();
-                        });
-                    })
-                    .catch(function (obj) {
-                        Swal.fire({
-                            position: "center",
-                            icon: obj.response.data.icon,
-                            title: obj.response.data.message,
-                            showConfirmButton: false,
-                            timer: 1500,
-                        }).then((result) => {
-                            $("#modalLoading").modal("show");
-                            location.reload();
-                        });
-                    });
-
-
-            })
-        }
-
-    })
-
     function getdata() {
         var usm = document.getElementById("usernameee").value;
         if (usm != null) {
@@ -254,7 +234,9 @@
                 var per = res.data;
                 $("#isinama").val(per.nama);
                 $("#isidivisi").val(per.divisi);
-                $("#isino").val(per.no_wa);
+                let ww = per.no_wa;
+                let wa = ww.substring(13);
+                $("#isino").val(wa);
                 $("#isiemail").val(per.email);
                 $("#isijabatan").val(per.jabatan);
                 $("#filep").val(per.Image);
