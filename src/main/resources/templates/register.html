@@ -234,8 +234,9 @@
                 var per = res.data;
                 $("#isinama").val(per.nama);
                 $("#isidivisi").val(per.divisi);
-                $("#isino").val(per.nowa);
-                $("#isiemail").val(per.mail);
+                $("#isino").val(per.no_wa);
+                $("#isiemail").val(per.email);
+                $("isijabatan").val(per.jabatan)
                 $("#before").attr('src', (per.image));
                 document.getElementById("use").innerHTML = "UPDATE DATA";
                 document.getElementById("use").id = "update";
