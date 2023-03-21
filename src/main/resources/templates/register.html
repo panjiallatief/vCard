@@ -237,7 +237,9 @@
                 let ww = per.no_wa;
                 let wa = ww.substring(13);
                 $("#isino").val(wa);
-                $("#isiemail").val(per.email);
+                let emm = per.email;
+                let mma = emm.substring(7);
+                $("#isiemail").val(mma);
                 $("#isijabatan").val(per.jabatan);
                 $("#filep").val(per.Image);
                 $("#before").attr('src', (per.image));
