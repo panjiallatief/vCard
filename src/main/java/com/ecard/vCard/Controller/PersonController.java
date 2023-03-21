@@ -91,6 +91,7 @@ public class PersonController {
         model.addAttribute("divisi", person.getDivisi());
         model.addAttribute("username", person.getUsername());
         model.addAttribute("namafile", person.getNamafile());
+        model.addAttribute("jabatan", person.getJabatan());
         model.addAttribute("Image", person.getImage());
         return "index";
     }
