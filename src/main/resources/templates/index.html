@@ -80,7 +80,12 @@
       address: "Commodity Square, Jl. Jend. Gatot Subroto Kav. 35-36, Kuningan Timur, Setiabudi, Jakarta Selatan",
     };
 
-    var vcard = "BEGIN:VCARD\nVERSION:4.0\nFN:" + contact.name + "\nTEL;TYPE=home,voice:" + contact.phone + "\nEMAIL:" + contact.email + "\nTITLE:"+contact.title+ "\nORG:"+contact.address+ "\nADR;TYPE=work:"+contact.company+ "\nEND:VCARD";
+    console.log(contact)
+
+    var vcard = "BEGIN:VCARD\nVERSION:3.0\nFN:"+contact.name+"\nTEL;TYPE#HOME,VOICE:"+contact.phone+"\nEMAIL;TYPE=internet,home:"+contact.email+"\nTITLE:"+contact.title+"\nADR;TYPE=work:;;"+contact.address+"\nEND:VCARD";
+    console.log(vcard);
+    // window.open("http://localhost:8110/qrcode?link=" + vcard + " ", "_blank")
+
 //PHOTO;TYPE=PNG;ENCODING=b:base64 string TITLE:IT APPLICATION ADR;TYPE=work
     var blob = new Blob([vcard], {
       type: "text/vcard;charset=utf-8"
