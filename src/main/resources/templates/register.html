@@ -32,12 +32,15 @@
         </div>
         <div class="row justify-content-center">
             <img id="before" style="width: auto; height: 200px;" src="" class="center mb-3">
-
+            <div  id="tempat" >
+                    
+            </div>
             <form id="formperson" action="#" enctype="multipart/form-data">
                 <div class="row">
                     <input class="form-control" type="file" id="filep" accept="image/*" />
                     <img id="my-image" src="#" hidden />
                 </div>
+                
                 <input type="text" th:value="${session.username}" id="usernameee" hidden />
                 <label class="mt-3" style="color: white;">Nama Lengkap</label>
                 <input type="text" id="isinama" class="form-control mt-1" />
@@ -245,6 +248,7 @@
                 $("#before").attr('src', (per.image));
                 document.getElementById("use").innerHTML = "UPDATE DATA";
                 document.getElementById("use").id = "update";
+                $("#tempat").append("<div class='alert alert-danger role='alert'>Jika ingin update data, mohon isi juga foto!</div>")
             })
         } else {
             document.getElementById("use").innerHTML = "SIMPAN DATA";
