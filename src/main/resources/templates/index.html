@@ -28,11 +28,13 @@
         </div>
         <!-- http://wa.me/+628… -->
         <div class="row" style="color: azure; text-align: center; justify-content: center;">
-            <h1 style="font-weight: lighter; padding-top: 5%;" th:text="${nama}"></h1>
-            <h3 th:text="${divisi}"></h3>
-            <h2 style="font-weight: lighter; width: 90%;">Commodity Square, Jl. Jend. Gatot Subroto Kav. 35-36, Kuningan
+            <h1 style="font-weight: lighter; padding-top: 5%;" id="fullname" th:text="${nama}" th:value="${nama}"></h1>
+            <h4 id="title" th:text="${jabatan}"></h4>
+            <h3 id="division" th:text="${divisi}"></h3>
+            <h2 id="address" style="font-weight: lighter; width: 90%;">Commodity Square, Jl. Jend. Gatot Subroto Kav. 35-36, Kuningan
                 Timur, Setiabudi, Jakarta Selatan</h2>
         </div>
+        <a type="button" class="btn btn-dark" id="save-btn">Save</a>
         <div class="row pt-2" style="justify-content: center;">
             <a id="mailing" class="btn btn-primary m-3" style="font-size: 60px; color: aliceblue; width: 25%; height: 15%;"
                 th:href="${email}" target="_blank"><i class="fa-regular fa-envelope"></i></a>
@@ -53,9 +55,42 @@
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script th:inline="javascript">
     /*<![CDATA[*/
-    // $(document).ready(function () {
-    //     getdata()
-    // });
+    $(document).ready(function () {
+        var fullname = /*[[${nama}]]*/"";
+        var email = /*[[${email}]]*/"";
+        var what = /*[[${wa}]]*/"";
+        var divisi = /*[[${divisi}]]*/"";
+        var jabatan = /*[[${jabatan}]]*/"";
+
+        var em = email.substring(7)
+        var wh = what.substring(13)
+    console.log(fullname, em, divisi, jabatan, wh);
+        var saveBtn = document.getElementById("save-btn");
+  saveBtn.addEventListener("click", function() {
+
+    
+    var contact = {
+      name: fullname,
+      phone: wh,
+      email: em,
+      company: "B-UNIVERSE",
+      title: jabatan + divisi,
+      address: "Commodity Square, Jl. Jend. Gatot Subroto Kav. 35-36, Kuningan Timur, Setiabudi, Jakarta Selatan",
+    };
+
+    var vcard = "BEGIN:VCARD\nVERSION:4.0\nFN:" + contact.name + "\nTEL;TYPE=home,voice:" + contact.phone + "\nEMAIL:" + contact.email + "\nTITLE:"+contact.title+ "\nORG:"+contact.address+ "\nADR;TYPE=work:"+contact.company+ "\nEND:VCARD";
+//PHOTO;TYPE=PNG;ENCODING=b:base64 string TITLE:IT APPLICATION ADR;TYPE=work
+    var blob = new Blob([vcard], {
+      type: "text/vcard;charset=utf-8"
+    });
+
+    var link = document.createElement('a');
+    link.href = window.URL.createObjectURL(blob);
+    link.download = contact.name + ".vcf";
+    link.click();
+
+  });
+    });
 
     // function getdata(id) {
     //     $.get(`/Person?id=1`, function (res) {
@@ -68,4 +103,9 @@
     //     })
     // }
 /*]]>*/
+/**
+* TODO:
+* - add picture and company logo
+*/
+
 </script>
