@@ -78,21 +78,13 @@ public class PersonController {
         httpSession.setAttribute("username", username);
         System.out.println(httpSession.getAttribute("username"));
         System.out.println(username);
-        Person person = personRepository.findbyUsername(username).get();
-        model.addAttribute("nama", person.getNama());
-        model.addAttribute("email", person.getEmail());
-        model.addAttribute("wa", person.getNo_wa());
-        model.addAttribute("divisi", person.getDivisi());
-        model.addAttribute("username", person.getUsername());
-        model.addAttribute("namafile", person.getNamafile());
-        model.addAttribute("Image", person.getImage());
         return "register";
     }
 
     @GetMapping(value = "/Person/{username}")
     public String Person(@PathVariable(required = true) String username, Model model) {
 
-        Person person = personRepository.findbyUsername(username).get();
+        com.ecard.vCard.Entity.Person person = personRepository.findbyUsername(username).get();
         model.addAttribute("nama", person.getNama());
         model.addAttribute("email", person.getEmail());
         model.addAttribute("wa", person.getNo_wa());
