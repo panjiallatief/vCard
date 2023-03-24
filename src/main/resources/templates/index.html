@@ -58,6 +58,14 @@
 <script th:inline="javascript">
     /*<![CDATA[*/
     $(document).ready(function () {
+
+        var pp = /*[[${gambar}]]*/"";
+        var reader = new FileReader();
+        reader.readAsDataURL(pp);
+        reader.onloadend = function () {
+        var base64String = reader.result;
+        console.log('Base64 String - ', base64String);}
+
         var fullname = /*[[${nama}]]*/"";
         var email = /*[[${email}]]*/"";
         var what = /*[[${wa}]]*/"";
@@ -99,20 +107,5 @@
   });
     });
 
-    // function getdata(id) {
-    //     $.get(`/Person?id=1`, function (res) {
-    //         var per = res.data;
-    //         $("#names").text(per.nama);
-    //         $("#divisi").text(per.divisi);
-    //         $("#mailing").attr("href", "mailto:" + `${per.email}` + "");
-    //         $("#wa").attr("href", "http://wa.me/" + `${per.no_wa}` + "");
-    //         console.log(per.nama, per.divisi)
-    //     })
-    // }
-/*]]>*/
-/**
-* TODO:
-* - add picture and company logo
-*/
 
 </script>
