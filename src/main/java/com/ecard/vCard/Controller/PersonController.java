@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Files;
+import java.sql.Blob;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,6 +20,8 @@ import javax.imageio.ImageIO;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.sql.rowset.serial.SerialBlob;
+import javax.sql.rowset.serial.SerialException;
 import javax.websocket.Decoder.Text;
 
 import org.apache.poi.ss.formula.functions.Replace;
@@ -49,6 +53,7 @@ import com.ecard.vCard.Repository.PersonRepository;
 import com.ecard.vCard.Util.GenereteCode;
 
 import io.netty.handler.codec.base64.Base64Decoder;
+// import org.apache.commons.codec.binary.Base64;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
@@ -82,9 +87,11 @@ public class PersonController {
     }
 
     @GetMapping(value = "/Person/{username}")
-    public String Person(@PathVariable(required = true) String username, Model model) {
+    public String Person(@PathVariable(required = true) String username, Model model) throws SQLException {
 
-        com.ecard.vCard.Entity.Person person = personRepository.findbyUsername(username).get();
+        Person person = personRepository.findbyUsername(username).get();
+        // byte[] encoded = Base64.getEncoder().encode(person.getGambar());
+        // System.out.println(encoded);
         model.addAttribute("nama", person.getNama());
         model.addAttribute("email", person.getEmail());
         model.addAttribute("wa", person.getNo_wa());
@@ -93,17 +100,24 @@ public class PersonController {
         model.addAttribute("namafile", person.getNamafile());
         model.addAttribute("jabatan", person.getJabatan());
         model.addAttribute("Image", person.getImage());
+        // model.addAttribute("gambar", person.getGambar());
+
         return "index";
     }
 
     @PostMapping(value = "/InputPerson")
     public ResponseEntity<Map> InputPerson(@RequestParam String nama, @RequestParam String divisi, @RequestParam String jabatan,
             @RequestParam String email,
-            @RequestParam String nowa, @RequestParam String Image) throws IOException {
+            @RequestParam String nowa, @RequestParam String Image) throws IOException, SerialException, SQLException {
         Map data = new HashMap<>();
         String namafile = httpSession.getAttribute("username").toString();
+
         String gambar = Image.replace(" ", "+");
+        String image = gambar.replace("=", "");
+        byte[] binarydata = Base64.getMimeDecoder().decode(gambar);
+        // Blob B = new SerialBlob(binarydata);
         Person person = new Person();
+        person.setGambar(binarydata);
         person.setNama(nama);
         person.setDivisi(divisi);
         person.setEmail("mailto:" + email);
@@ -113,6 +127,7 @@ public class PersonController {
         person.setJabatan(jabatan);
         person.setImage(gambar);
         personRepository.save(person);
+        // System.out.println(B);
         data.put("icon", "success");
         data.put("message", "data berhasil di insert");
         return new ResponseEntity<>(data, HttpStatus.OK);

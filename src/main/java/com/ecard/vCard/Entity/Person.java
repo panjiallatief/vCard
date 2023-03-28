@@ -58,5 +58,9 @@ public class Person {
 
     @Column(name = "Foto", columnDefinition = "TEXT")
     private String Image;
+    
+    @Lob
+    @Column (name = "image")
+    private byte[] gambar;
 
 }
