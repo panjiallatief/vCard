@@ -20,7 +20,7 @@
     <div class="container">
         <div>
             <label for="formFileLg" class="form-label">Upload Images</label>
-            <input class="form-control form-control-lg" name="files" id="files" accept="image/*" type="file">
+            <input class="form-control form-control-lg" name="files" id="filesUp" accept="image/*" type="file">
             <button class="btn btn-primary" id="upL" onclick="uplo()">Upload</button>
         </div>
     </div>
@@ -35,9 +35,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
     integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.0/axios.min.js"
-  integrity="sha512-OdkysyYNjK4CZHgB+dkw9xQp66hZ9TLqmS2vXaBrftfyJeduVhyy1cOfoxiKdi4/bfgpco6REu6Rb+V2oVIRWg=="
-  crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.0/axios.min.js"
+    integrity="sha512-OdkysyYNjK4CZHgB+dkw9xQp66hZ9TLqmS2vXaBrftfyJeduVhyy1cOfoxiKdi4/bfgpco6REu6Rb+V2oVIRWg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script th:inline="javascript">
     /*<![CDATA[*/
     $(document).ready(function () {
@@ -45,30 +45,33 @@
     });
 
     function uplo() {
-    var url = `/inputimage`;
-    var bodyFormData = new FormData();
-    var inputFile = document.getElementsByName("files");
-    listVideo = [];
-    for (var i = 0; i < inputFile.length; i++) {
-      var a = inputFile[i].files[0];
-      listVideo.push(a);
-    }
-    listVideo.forEach(video => {
-      bodyFormData.append("files", video);
-      bodyFormData.append("files", listVideo);
-    });
-    axios({
-      method: "post",
-      url: url,
-      data: bodyFormData,
-      headers: { "Content-Type": "multipart/form-data" },
-    })
-      .then(function (response) {
-        console.log("berhasil");
-      }).catch(function (obj) {
-        console.log("masuk catch");
-      });
-  };
+        var url = `/inputimage`;
+        var bodyFormData = new FormData();
+        var inputFile = document.getElementsByName("files");
+        listVideo = [];
+        for (var i = 0; i < inputFile.length; i++) {
+            var a = inputFile[i].files[0];
+            listVideo.push(a);
+        }
+        listVideo.forEach(video => {
+            bodyFormData.append("files", video);
+            bodyFormData.append("files", listVideo);
+        });
+        axios({
+            method: "post",
+            url: url,
+            data: bodyFormData,
+            headers: { "Content-Type": "multipart/form-data" },
+        })
+            .then(function (response) {
+                console.log("berhasil");
+                const fileInput = document.getElementById('filesUp');
+                const originalName = fileInput.files[0].name;
+                console.log('Original file name: ' + originalName);
+            }).catch(function (obj) {
+                console.log("masuk catch");
+            });
+    };
 
 
 </script>
