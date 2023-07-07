@@ -184,7 +184,7 @@ public class PersonController {
         String arrSplit[] = files.getOriginalFilename().split("\\.");
         originalExtension = arrSplit[arrSplit.length - 1];
         try {
-            files.transferTo(new File(env.getProperty("URL.FILE_UPLOAD") + "/" + nama + originalExtension));
+            files.transferTo(new File(env.getProperty("URL.FILE_UPLOAD") + "/" + nama));
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
