@@ -47,12 +47,25 @@
         return window.location.href
     }
 
+    function makeid(length) {
+        let result = '';
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        const charactersLength = characters.length;
+        let counter = 0;
+        while (counter < length) {
+            result += characters.charAt(Math.floor(Math.random() * charactersLength));
+            counter += 1;
+        }
+        return result;
+    }
+
     function uplo() {
         var urlLink = getCurrentURL();
         var rrrr = urlLink.substring(0, urlLink.indexOf("imageuploader"));
         var fileInput = document.getElementById('filesUp');
         var originalName = fileInput.files[0].name;
-        var url = `/inputimage`;
+        var namaedit = makeid(9);
+        var url = `/inputimage?nama=${namaedit}`;
         var bodyFormData = new FormData();
         var inputFile = document.getElementsByName("files");
         listVideo = [];
@@ -73,12 +86,12 @@
             .then(function (response) {
                 console.log("berhasil");
                 // buka();
-                window.open(`${rrrr}` + "qrcode?link=" + `${rrrr}` + "images/upload/" + `${originalName}` + "", "_self");
+                window.open(`${rrrr}` + "qrcode?link=" + `${rrrr}` + "images/upload/" + `${namaedit}` + "", "_self");
 
             }).catch(function (obj) {
                 console.log("masuk catch");
                 // buka();
-                window.open(`${rrrr}` + "qrcode?link=" + `${rrrr}` + "images/upload/" + `${originalName}` + "", "_self");
+                window.open(`${rrrr}` + "qrcode?link=" + `${rrrr}` + "images/upload/" + `${namaedit}` + "", "_self");
 
             });
     };
