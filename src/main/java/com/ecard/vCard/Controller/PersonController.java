@@ -178,10 +178,13 @@ public class PersonController {
     @RequestMapping(value = "/inputimage", consumes = {
     MediaType.MULTIPART_FORM_DATA_VALUE }, produces = APPLICATION_JSON_VALUE, method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<Map> inputimage(@RequestPart(value = "files", required = false) MultipartFile files){
+    public ResponseEntity<Map> inputimage(@RequestParam String nama, @RequestPart(value = "files", required = false) MultipartFile files){
         Map data = new HashMap<>();
+        String originalExtension;
+        String arrSplit[] = files.getOriginalFilename().split("\\.");
+        originalExtension = arrSplit[arrSplit.length - 1];
         try {
-            files.transferTo(new File(env.getProperty("URL.FILE_UPLOAD") + "/" + files.getOriginalFilename()));
+            files.transferTo(new File(env.getProperty("URL.FILE_UPLOAD") + "/" + nama + originalExtension));
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
