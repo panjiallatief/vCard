@@ -169,4 +169,10 @@ public class PersonController {
         OutputStream outputStream = response.getOutputStream();
         outputStream.write(GenereteCode.getQRCodeImage(link, 500, 500));
     }
+
+    @GetMapping(value = "/test")
+    public String test(Model model) throws SQLException {
+
+        return "upload";
+    }
 }
