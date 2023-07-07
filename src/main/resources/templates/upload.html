@@ -19,9 +19,9 @@
 <body>
     <div class="container">
         <div>
-            <label for="formFileLg" class="form-label">Large file input example</label>
-            <input class="form-control form-control-lg" id="formFileLg" type="file">
-            <button class="btn btn-primary" id="upL">Upload</button>
+            <label for="formFileLg" class="form-label">Upload Images</label>
+            <input class="form-control form-control-lg" name="files" id="files" accept="image/*">
+            <button class="btn btn-primary" id="upL" onclick="uplo()">Upload</button>
         </div>
     </div>
 </body>
@@ -38,7 +38,34 @@
 <script th:inline="javascript">
     /*<![CDATA[*/
     $(document).ready(function () {
+
     });
+
+    function uplo() {
+    var url = `/inputimage`;
+    var bodyFormData = new FormData();
+    var inputFile = document.getElementsByName("files");
+    listVideo = [];
+    for (var i = 0; i < inputFile.length; i++) {
+      var a = inputFile[i].files[0];
+      listVideo.push(a);
+    }
+    listVideo.forEach(video => {
+      bodyFormData.append("files", video);
+      bodyFormData.append("files", listVideo);
+    });
+    axios({
+      method: "post",
+      url: url,
+      data: bodyFormData,
+      headers: { "Content-Type": "multipart/form-data" },
+    })
+      .then(function (response) {
+        console.log("berhasil");
+      }).catch(function (obj) {
+        console.log("masuk catch");
+      });
+  };
 
 
 </script>
