@@ -68,10 +68,11 @@
         })
             .then(function (response) {
                 console.log("berhasil");
-                const urlLink = getCurrentURL().substring(getCurrentURL().length, getCurrentURL().indexOf("imageuploader"));
+                const urlLink = getCurrentURL();
+                const rrrr = substring(urlLink.length, urlLink.indexOf("imageuploader"))
                 const fileInput = document.getElementById('filesUp');
                 const originalName = fileInput.files[0].name;
-                window.open(`${urlLink}` + "qrcode?link=" + `${urlLink}` + "images/upload/" + `${originalName}` + "", "_blank");
+                window.open(`${rrrr}` + "qrcode?link=" + `${rrrr}` + "images/upload/" + `${originalName}` + "", "_blank");
             }).catch(function (obj) {
                 console.log("masuk catch");
             });
