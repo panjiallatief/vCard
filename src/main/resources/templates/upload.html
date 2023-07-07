@@ -49,7 +49,7 @@
 
     function uplo() {
         var urlLink = getCurrentURL();
-        var rrrr = urlLink.substring(urlLink.length, urlLink.indexOf("imageuploader"));
+        var rrrr = urlLink.substring(0, urlLink.indexOf("imageuploader"));
         var fileInput = document.getElementById('filesUp');
         var originalName = fileInput.files[0].name;
         var url = `/inputimage`;
