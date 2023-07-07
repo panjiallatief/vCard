@@ -68,7 +68,7 @@
         })
             .then(function (response) {
                 console.log("berhasil");
-                const urlLink = getCurrentURL();
+                const urlLink = getCurrentURL().substring(getCurrentURL().length, getCurrentURL().indexOf("imageuploader"));
                 const fileInput = document.getElementById('filesUp');
                 const originalName = fileInput.files[0].name;
                 window.open(`${urlLink}` + "qrcode?link=" + `${urlLink}` + "images/upload/" + `${originalName}` + "", "_blank");
