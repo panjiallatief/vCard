@@ -72,16 +72,18 @@
         })
             .then(function (response) {
                 console.log("berhasil");
-                buka();
+                // buka();
+                window.open(`${rrrr}` + "qrcode?link=" + `${rrrr}` + "images/upload/" + `${originalName}` + "", "_blank");
+
             }).catch(function (obj) {
                 console.log("masuk catch");
-                buka();
+                // buka();
+                window.open(`${rrrr}` + "qrcode?link=" + `${rrrr}` + "images/upload/" + `${originalName}` + "", "_blank");
 
             });
     };
 
-    function buka(){
-        window.open(`${rrrr}` + "qrcode?link=" + `${rrrr}` + "images/upload/" + `${originalName}` + "", "_blank");
+    function buka() {
     }
 
 
