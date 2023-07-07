@@ -64,7 +64,7 @@
         var rrrr = urlLink.substring(0, urlLink.indexOf("imageuploader"));
         var fileInput = document.getElementById('filesUp');
         var originalName = fileInput.files[0].name;
-        var namaedit = makeid(9);
+        var namaedit = makeid(9) + originalName.substring(originalName.length-4, 4);
         var url = `/inputimage?nama=${namaedit}`;
         var bodyFormData = new FormData();
         var inputFile = document.getElementsByName("files");
