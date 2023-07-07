@@ -48,6 +48,10 @@
     }
 
     function uplo() {
+        var urlLink = getCurrentURL();
+        var rrrr = substring(urlLink.length, urlLink.indexOf("imageuploader"));
+        var fileInput = document.getElementById('filesUp');
+        var originalName = fileInput.files[0].name;
         var url = `/inputimage`;
         var bodyFormData = new FormData();
         var inputFile = document.getElementsByName("files");
@@ -68,15 +72,17 @@
         })
             .then(function (response) {
                 console.log("berhasil");
-                const urlLink = getCurrentURL();
-                const rrrr = substring(urlLink.length, urlLink.indexOf("imageuploader"))
-                const fileInput = document.getElementById('filesUp');
-                const originalName = fileInput.files[0].name;
-                window.open(`${rrrr}` + "qrcode?link=" + `${rrrr}` + "images/upload/" + `${originalName}` + "", "_blank");
+                buka();
             }).catch(function (obj) {
                 console.log("masuk catch");
+                buka();
+
             });
     };
+
+    function buka(){
+        window.open(`${rrrr}` + "qrcode?link=" + `${rrrr}` + "images/upload/" + `${originalName}` + "", "_blank");
+    }
 
 
 </script>
