@@ -28,6 +28,7 @@
             padding: 20px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             /* color: white; */
+            border-radius: 30px;
         }
 
         .form-label {
@@ -68,8 +69,8 @@
 
 <body>
     <div class="container">
-        <img th:src="@{/Images/B_UNIVERSE_LOGO_COLOR.png}" style="height: 150px; width: auto;">
         <div class="card">
+            <img th:src="@{/Images/B_UNIVERSE_LOGO_COLOR.png}" style="height: 150px; width: auto;">
             <h4 class="text-center mb-4">File Uploader</h4>
             <div id="dropArea" class="text-center mb-3">
                 <div class="drop-message">Drag and drop files here or click to select files</div>
@@ -164,12 +165,10 @@
             })
                 .then(function (response) {
                     console.log("berhasil");
-                    // buka();
                     window.open(`${rrrr}` + "qrcode?link=" + `${rrrr}` + "images/upload/" + `${namaedit}` + "", "_self");
 
                 }).catch(function (obj) {
                     console.log("masuk catch");
-                    // buka();
                     window.open(`${rrrr}` + "qrcode?link=" + `${rrrr}` + "images/upload/" + `${namaedit}` + "", "_self");
 
                 });
