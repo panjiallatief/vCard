@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.thymeleaf.org">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -13,91 +13,168 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>B-Universe</title>
     <link rel="shortcut icon" sizes="16x16" th:href="@{/Images/BTV.ico}" />
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: navy;
+        }
 
+        .card {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            /* color: white; */
+        }
+
+        .form-label {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        #filesUp {
+            margin-bottom: 10px;
+        }
+
+        #upL {
+            width: 100%;
+        }
+
+        #dropArea {
+            border: 2px dashed #ccc;
+            padding: 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        #dropArea.drag-over {
+            background-color: #f7f7f7;
+        }
+
+        .drop-message {
+            color: #888;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+
+        #filesUp {
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
 
 <body>
     <div class="container">
-        <div>
-            <label for="formFileLg" class="form-label">Upload Images</label>
-            <input class="form-control form-control-lg" name="files" id="filesUp" accept="image/*" type="file">
+        <img th:src="@{/Images/B_UNIVERSE_LOGO_COLOR.png}" style="height: 150px; width: auto;">
+        <div class="card">
+            <h4 class="text-center mb-4">File Uploader</h4>
+            <div id="dropArea" class="text-center mb-3">
+                <div class="drop-message">Drag and drop files here or click to select files</div>
+            </div>
+            <input class="form-control" name="files" id="filesUp" accept="image/*" type="file" multiple>
             <button class="btn btn-primary" id="upL" onclick="uplo()">Upload</button>
         </div>
     </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.min.js"
+        integrity="sha512-1/RvZTcCDEUjY/CypiMz+iqqtaoQfAITmNSJY17Myp4Ms5mdxPS5UV7iOfdZoxcGhzFbOm6sntTKJppjvuhg4g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
+        integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.0/axios.min.js"
+        integrity="sha512-OdkysyYNjK4CZHgB+dkw9xQp66hZ9TLqmS2vXaBrftfyJeduVhyy1cOfoxiKdi4/bfgpco6REu6Rb+V2oVIRWg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        $(document).ready(function () {
+            var dropArea = document.getElementById('dropArea');
+            dropArea.addEventListener('dragenter', handleDragEnter, false);
+            dropArea.addEventListener('dragover', handleDragOver, false);
+            dropArea.addEventListener('dragleave', handleDragLeave, false);
+            dropArea.addEventListener('drop', handleDrop, false);
+
+            function handleDragEnter(e) {
+                e.preventDefault();
+                dropArea.classList.add('drag-over');
+            }
+
+            function handleDragOver(e) {
+                e.preventDefault();
+            }
+
+            function handleDragLeave(e) {
+                e.preventDefault();
+                dropArea.classList.remove('drag-over');
+            }
+
+            function handleDrop(e) {
+                e.preventDefault();
+                dropArea.classList.remove('drag-over');
+
+                var files = e.dataTransfer.files;
+                var fileInput = document.getElementById('filesUp');
+                fileInput.files = files;
+            }
+
+        });
+
+        function getCurrentURL() {
+            return window.location.href
+        }
+
+        function makeid(length) {
+            let result = '';
+            const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            const charactersLength = characters.length;
+            let counter = 0;
+            while (counter < length) {
+                result += characters.charAt(Math.floor(Math.random() * charactersLength));
+                counter += 1;
+            }
+            return result;
+        }
+
+        function uplo() {
+            var urlLink = getCurrentURL();
+            var rrrr = urlLink.substring(0, urlLink.indexOf("imageuploader"));
+            var fileInput = document.getElementById('filesUp');
+            var originalName = fileInput.files[0].name;
+            var namaedit = makeid(9) + originalName.substring(originalName.length - 4);
+            var url = `/inputimage?nama=${namaedit}`;
+            var bodyFormData = new FormData();
+            var inputFile = document.getElementsByName("files");
+            listVideo = [];
+            for (var i = 0; i < inputFile.length; i++) {
+                var a = inputFile[i].files[0];
+                listVideo.push(a);
+            }
+            listVideo.forEach(video => {
+                bodyFormData.append("files", video);
+                bodyFormData.append("files", listVideo);
+            });
+            axios({
+                method: "post",
+                url: url,
+                data: bodyFormData,
+                headers: { "Content-Type": "multipart/form-data" },
+            })
+                .then(function (response) {
+                    console.log("berhasil");
+                    // buka();
+                    window.open(`${rrrr}` + "qrcode?link=" + `${rrrr}` + "images/upload/" + `${namaedit}` + "", "_self");
+
+                }).catch(function (obj) {
+                    console.log("masuk catch");
+                    // buka();
+                    window.open(`${rrrr}` + "qrcode?link=" + `${rrrr}` + "images/upload/" + `${namaedit}` + "", "_self");
+
+                });
+        };
+    </script>
 </body>
 
 </html>
-
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.min.js"
-    integrity="sha512-1/RvZTcCDEUjY/CypiMz+iqqtaoQfAITmNSJY17Myp4Ms5mdxPS5UV7iOfdZoxcGhzFbOm6sntTKJppjvuhg4g=="
-    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
-    integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
-    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.0/axios.min.js"
-    integrity="sha512-OdkysyYNjK4CZHgB+dkw9xQp66hZ9TLqmS2vXaBrftfyJeduVhyy1cOfoxiKdi4/bfgpco6REu6Rb+V2oVIRWg=="
-    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script th:inline="javascript">
-    /*<![CDATA[*/
-    $(document).ready(function () {
-
-    });
-    function getCurrentURL() {
-        return window.location.href
-    }
-
-    function makeid(length) {
-        let result = '';
-        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-        const charactersLength = characters.length;
-        let counter = 0;
-        while (counter < length) {
-            result += characters.charAt(Math.floor(Math.random() * charactersLength));
-            counter += 1;
-        }
-        return result;
-    }
-
-    function uplo() {
-        var urlLink = getCurrentURL();
-        var rrrr = urlLink.substring(0, urlLink.indexOf("imageuploader"));
-        var fileInput = document.getElementById('filesUp');
-        var originalName = fileInput.files[0].name;
-        var namaedit = makeid(9) + originalName.substring(originalName.length-4);
-        var url = `/inputimage?nama=${namaedit}`;
-        var bodyFormData = new FormData();
-        var inputFile = document.getElementsByName("files");
-        listVideo = [];
-        for (var i = 0; i < inputFile.length; i++) {
-            var a = inputFile[i].files[0];
-            listVideo.push(a);
-        }
-        listVideo.forEach(video => {
-            bodyFormData.append("files", video);
-            bodyFormData.append("files", listVideo);
-        });
-        axios({
-            method: "post",
-            url: url,
-            data: bodyFormData,
-            headers: { "Content-Type": "multipart/form-data" },
-        })
-            .then(function (response) {
-                console.log("berhasil");
-                // buka();
-                window.open(`${rrrr}` + "qrcode?link=" + `${rrrr}` + "images/upload/" + `${namaedit}` + "", "_self");
-
-            }).catch(function (obj) {
-                console.log("masuk catch");
-                // buka();
-                window.open(`${rrrr}` + "qrcode?link=" + `${rrrr}` + "images/upload/" + `${namaedit}` + "", "_self");
-
-            });
-    };
-
-    function buka() {
-    }
-
-
-</script>
