@@ -147,7 +147,6 @@
             var ex = originalName.lastIndexOf(".");
             // var namaedit = makeid(9) + originalName.substring(originalName.length - 4);
             var namaedit = makeid(9) + originalName.substring(ex);
-            console.log(namaedit);
             var url = `/inputimage?nama=${namaedit}`;
             var bodyFormData = new FormData();
             var inputFile = document.getElementsByName("files");
@@ -167,16 +166,12 @@
                 headers: { "Content-Type": "multipart/form-data" },
             })
                 .then(function (response) {
-                    console.log("berhasil");
-            console.log(namaedit);
-
-                    window.open(`${rrrr}` + "qrcode?link=" + `${rrrr}` + "images/upload/" + `${namaedit}` + "", "_self");
+                    // console.log("berhasil");
+                    window.open(`${rrrr}` + "qrcode?link=" + `${rrrr}` + `${namaedit}` + "", "_self");
 
                 }).catch(function (obj) {
-                    console.log("masuk catch");
-            console.log(namaedit);
-
-                    window.open(`${rrrr}` + "qrcode?link=" + `${rrrr}` + "images/upload/" + `${namaedit}` + "", "_self");
+                    // console.log("masuk catch");
+                    window.open(`${rrrr}` + "qrcode?link=" + `${rrrr}` +  `${namaedit}` + "", "_self");
 
                 });
         };
