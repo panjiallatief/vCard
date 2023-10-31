@@ -73,7 +73,7 @@ public class PersonController {
 
     @GetMapping(value = "/index")
     public String index() {
-        return "index";
+        return "indexcard";
     }
 
     @GetMapping(value = "/")
@@ -102,7 +102,7 @@ public class PersonController {
         model.addAttribute("Image", person.getImage());
         // model.addAttribute("gambar", person.getGambar());
 
-        return "index";
+        return "indexcard";
     }
 
     @PostMapping(value = "/InputPerson")
