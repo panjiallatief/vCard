@@ -102,7 +102,7 @@ public class PersonController {
         model.addAttribute("Image", person.getImage());
         // model.addAttribute("gambar", person.getGambar());
 
-        return "indexcard";
+        return "indexcard"; 
     }
 
     @PostMapping(value = "/InputPerson")
