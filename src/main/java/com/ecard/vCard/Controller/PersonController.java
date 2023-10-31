@@ -169,27 +169,4 @@ public class PersonController {
         OutputStream outputStream = response.getOutputStream();
         outputStream.write(GenereteCode.getQRCodeImage(link, 500, 500));
     }
-
-    @GetMapping(value = "/imageuploader")
-    public String test(Model model) throws SQLException {
-        return "upload";
-    }
-
-    @RequestMapping(value = "/inputimage", consumes = {
-    MediaType.MULTIPART_FORM_DATA_VALUE }, produces = APPLICATION_JSON_VALUE, method = RequestMethod.POST)
-    @ResponseBody
-    public ResponseEntity<Map> inputimage(@RequestParam String nama, @RequestPart(value = "files", required = false) MultipartFile files){
-        Map data = new HashMap<>();
-        String originalExtension;
-        String arrSplit[] = files.getOriginalFilename().split("\\.");
-        originalExtension = arrSplit[arrSplit.length - 1];
-        try {
-            files.transferTo(new File(env.getProperty("URL.FILE_UPLOAD") + "/" + nama));
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
-        data.put("icon", "success");
-        data.put("message", "data berhasil di insert");
-        return new ResponseEntity<>(data, HttpStatus.OK);
-    }
 }
