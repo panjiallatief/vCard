@@ -11,36 +11,52 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css"
         integrity="sha512-SbiR/eusphKoMVVXysTKG/7VseWii+Y3FdHrt0EpKgpToZeemhqHeZeLWLhJutz/2ut2Vw1uQEj2MbRF+TVBUA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-        <link rel="stylesheet" th:href="@{/css/styles.css}" />
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
     <title>B-Universe</title>
     <link rel="shortcut icon" sizes="16x16" th:href="@{/Images/BTV.ico}" />
 
 </head>
 
-<body th:style="'background-image:url('+@{/Images/back.png}+');background-size:cover;'">
-    <div class="container">
-        <div class="row" style="justify-content: center;">
-            <img th:src="@{/Images/B_UNIVERSE_LOGO_COLOR.png}" style="height: 150px; width: auto;">
-        </div>
-        <div class="card">
-            <div class="front">
-                <div class="imageprofile mx-auto d-block"
-                    style="justify-content: center; height: 200px; width: 200px; box-shadow: 0 0 50px #ccc; border-radius: 50%; ">
-                    <img th:src="${Image}"
-                        style="height: 100%; width: 100%; object-fit:cover; overflow: hidden; border-radius: 50%; ">
+<body class="d-flex justify-content-center vh-100 bb">
+    <div class="card-container" style="margin-top: 5rem;">
+        <div class="card-inner " >
+            <div class="card-front ">
+                <div class="d-flex toflip fixed-bottom justify-content-end">
+                    <i class="fa-solid fa-arrow-right fa-2x m-3"></i>
                 </div>
-                <div class="row" style="color: azure; text-align: center; justify-content: center;">
-                    <h1 style="font-weight: lighter; padding-top: 5%;" id="fullname" th:text="${nama}"
-                        th:value="${nama}"></h1>
-                    <h4 id="title" th:text="${jabatan}"></h4>
-                    <h3 id="division" th:text="${divisi}"></h3>
-                    <h2 id="address" style="font-weight: lighter; width: 90%;">Commodity Square, Jl. Jend. Gatot Subroto
-                        Kav.
-                        35-36, Kuningan
-                        Timur, Setiabudi, Jakarta Selatan</h2>
+                <div class="row" style="margin-top: 10%;" >
+                    <div class="col" align="center" >
+                        <img th:src="${Image}" style="height: 200px; width: 200px; border-radius: 50%;">
+                    </div>
+                    <div class="col" style="margin-left: 15px; margin-right: 15px;">
+                        <h1 style="font-weight: lighter; padding-top: 5%;" id="fullname" th:text="${nama}" th:value="${nama}"></h1>
+                        <h4 id="title" th:text="${jabatan}"></h4>
+                        <h3 id="division" th:text="${divisi}"></h3>
+                        <h2 id="address" style="font-weight: lighter; font-size: small;">Commodity Square, Jl. Jend. Gatot Subroto Kav.
+                            35-36, Kuningan
+                            Timur, Setiabudi, Jakarta Selatan</h2>
+                    </div>
+                    
                 </div>
+                
+                
             </div>
-            <div class="back">Yo, what up?</div>
+            <div class="card-back">
+                
+                    <a class="btn btn-primary float-end mt-2" style="width: 80%; height: 3.5rem; border-radius: 10px 0 0 10px; font-size: x-large;" type="button" th:href="${email}"
+                    target="_blank"><i class="fa-regular fa-envelope float-start m-2"></i> Email me</a>
+                    <a class="btn btn-success float-end mt-2" style="width: 80%; height: 3.5rem; border-radius: 10px 0 0 10px; font-size: x-large;" type="button" th:href="${wa}" target="_blank"><i class="fa-brands fa-whatsapp float-start m-2"></i> Call / Message me</a>
+                    <a id="save-btn" class="btn btn-dark float-end mt-2" style="width: 80%; height: 3.5rem; border-radius: 10px 0 0 10px; font-size: x-large;" type="button"><i class="fa-solid fa-download float-start m-2"></i> Save my contact</a>
+
+                    <div class="row" style="justify-content: center;">
+                        <a th:src="@{/Images/B_UNIVERSE_LOGO_COLOR.png}" style="height: 150px; width: auto;">
+                    </div>
+                    <div class="d-flex toflip fixed-bottom justify-content-end">
+                        <i class="fa-solid fa-arrow-right fa-2x m-3"></i>
+                    </div>
+             
+                
+            </div>
         </div>
     </div>
 </body>
@@ -57,9 +73,10 @@
 <script th:inline="javascript">
     /*<![CDATA[*/
     $(document).ready(function () {
-        $('.container').on('click', function () {
-            $('.card').toggleClass('flipped');
-        });
+        $('.toflip').click(function (e) {
+            e.preventDefault();
+            $('.card-inner').toggleClass('flipped');
+        })
 
         var pp = /*[[${gambar}]]*/"";
         var reader = new FileReader();
@@ -69,7 +86,11 @@
         console.log('Base64 String - ', base64String);
 
 
-        var fullname = /*[[${nama}]]*/"";
+       
+        
+    });
+
+    var fullname = /*[[${nama}]]*/"";
         var email = /*[[${email}]]*/"";
         var what = /*[[${wa}]]*/"";
         var divisi = /*[[${divisi}]]*/"";
@@ -78,7 +99,7 @@
         var em = email.substring(7)
         var wh = what.substring(13)
         console.log(fullname, em, divisi, jabatan, wh);
-        var saveBtn = document.getElementById("save-btn");
+    var saveBtn = document.getElementById("save-btn");
         saveBtn.addEventListener("click", function () {
 
 
@@ -108,7 +129,6 @@
             link.click();
 
         });
-    });
 
 
 </script>
