@@ -117,7 +117,7 @@ public class PersonController {
         byte[] binarydata = Base64.getMimeDecoder().decode(gambar);
         // Blob B = new SerialBlob(binarydata);
         Person person = new Person();
-        person.setGambar(binarydata);
+        // person.setGambar(binarydata);
         person.setNama(nama);
         person.setDivisi(divisi);
         person.setEmail("mailto:" + email);
@@ -125,7 +125,7 @@ public class PersonController {
         person.setUsername(httpSession.getAttribute("username").toString());
         person.setNamafile(namafile + ".jpg");
         person.setJabatan(jabatan);
-        person.setImage(gambar);
+        person.setImage(null);
         personRepository.save(person);
         // System.out.println(B);
         data.put("icon", "success");
@@ -148,7 +148,7 @@ public class PersonController {
         person.setNo_wa("http://wa.me/+62" + nowa);
         person.setUsername(httpSession.getAttribute("username").toString());
         person.setNamafile(namafile + ".jpg");
-        person.setImage(gambar);
+        person.setImage(null);
         personRepository.save(person);
         data.put("icon", "success");
         data.put("message", "data berhasil di insert");
