@@ -101,7 +101,7 @@ public class PersonController {
         model.addAttribute("jabatan", person.getJabatan());
         model.addAttribute("Image", person.getImage());
         // model.addAttribute("gambar", person.getGambar());
-
+ 
         return "indexcard"; 
     }
 
