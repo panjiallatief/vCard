@@ -256,11 +256,16 @@
 
     }
 
-
+    function getCurrentURL() {
+    return window.location.href
+  }
 
     function generateQR() {
+        var urlLink = getCurrentURL()
         var usme = document.getElementById("usernameee").value;
-        window.open("http://139.255.52.68:8110/qrcode?link=http://onebasket.b-universe.id:8110/Person/" + `${usme}` + "", "_blank")
+        // window.open("http://139.255.52.68:8110/qrcode?link=http://onebasket.b-universe.id:8110/Person/" + `${usme}` + "", "_blank")
+        window.open(`${urlLink}` + "qrcode?link=" + `${urlLink}` + "Person/" + `${usme}` + "", "_blank");
+
     }
 
 
