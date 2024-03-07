@@ -73,7 +73,7 @@ public class PersonController {
 
     @GetMapping(value = "/index")
     public String index() {
-        return "indexcard";
+        return "index";
     }
 
     @GetMapping(value = "/")
