@@ -81,8 +81,6 @@ public class PersonController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
         httpSession.setAttribute("username", username);
-        System.out.println(httpSession.getAttribute("username"));
-        System.out.println(username);
         return "register";
     }
 
