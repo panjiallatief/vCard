@@ -44,7 +44,6 @@ server:
       enabled: false
     path: /error
 URL:
-  FILE_IN: C:\\Image
-  FILE_PRIEVIEW: C:\\Image
-  FILE_UPLOAD: C:\\Users\\Raihan.fadhlullah\\Documents\\GitHub\\vCard\\src\\main\\resources\\IMAGE
+  FILE_PREVIEW: /app/images
+  FILE_UPLOAD: /app/images
 ---
